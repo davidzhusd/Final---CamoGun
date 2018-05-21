@@ -19,7 +19,7 @@ public class Location {
 	{
 		int rowChange=0;
 		int colChange=0;
-		int D=direction
+		int D=direction;
 		switch(D)
 		{
 		case 0: rowChange=-1;
@@ -44,7 +44,7 @@ public class Location {
 				  break;
 		default: break;
 		}
-		return new Location(row+rowChange; col+colChange)
+		return new Location(row+rowChange, col+colChange);
 	}
 	
 }

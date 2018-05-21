@@ -6,6 +6,7 @@ public class Location {
 	{
 		row=r;
 		col=c;
+		
 	}
 	public int getRow()
 	{

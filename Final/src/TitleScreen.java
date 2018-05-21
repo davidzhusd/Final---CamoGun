@@ -1,26 +1,39 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
-public class TitleScreen extends JFrame{
-	private JButton start;
-	private JButton instructions;
-	private JPanel buttons;
-	public TitleScreen()
-	{
-		initGUI();
-	}
-	public void initGUI()
-	{
-		start = new JButton("Start");
-		instructions = new JButton("Instructions");
-		buttons = new JPanel();
-		buttons.add(start);
-		buttons.add(instructions);
-		getContentPane().setLayout(new BorderLayout());
-		add("Center", buttons);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+public class TitleScreen extends JFrame implements ActionListener{
+	Display x;
+	JButton Play;
+	JButton Instructions;
+	JButton Credits;
+	public TitleScreen() {
+		x = new Display();
+		Play = new JButton("Play");
+		Instructions = new JButton("Instructions");
+		Credits = new JButton("Credits");
+		setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.ipady = 100;
+		gbc.ipadx = 100;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		add(Play, gbc);
+		add(Instructions, gbc);
+		add(Credits, gbc);
+		Play.addActionListener(this);
+		Instructions.addActionListener(this);
+		Credits.addActionListener(this);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1000, 1000);
 		setVisible(true);
+	}
+	public void actionPerformed (ActionEvent event)
+	{
+		if (event.getSource() == Play)
+		{
+			x.displayGame();
+		}
 	}
 }

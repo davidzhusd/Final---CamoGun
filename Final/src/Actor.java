@@ -70,7 +70,7 @@ public class Actor {
 	public boolean canMove()
 	{
 		Location newLoc = location.getAdjacentLocation(direction);
-		
+		//check if can move forward
 		return true;
 	}
 

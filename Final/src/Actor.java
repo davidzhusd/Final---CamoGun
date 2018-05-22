@@ -15,7 +15,7 @@ public class Actor {
 	}
 
 	public Location getLocation()
-	{
+	{ 
 		return location;
 	}
 

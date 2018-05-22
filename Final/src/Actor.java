@@ -25,12 +25,12 @@ public class Actor {
 		return location;
 	}
 	
-	public void setDirection(dir)
+	public void setDirection(int dir)
 	{
 		direction = dir;
 	}
 	
-	public void setLocation(loc)
+	public void setLocation(Location loc)
 	{
 		location = loc;
 	}
@@ -66,7 +66,7 @@ public class Actor {
 		return true;
 	}
 	
-	public void paint();
+	public void paint()
 	{
 		super.repaint();
 	}

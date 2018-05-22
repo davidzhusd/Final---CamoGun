@@ -66,6 +66,7 @@ public class Actor {
 		return true;
 	}
 	
+	
 	public void removeSelffromGrid()
 	{
 		//to be implemented

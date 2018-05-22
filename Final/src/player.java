@@ -23,6 +23,7 @@ public class player extends Actor
 	{
 		location=new Location(location.getRow()-1, location.getCol());
 		
+		
 	}
 	public void moveDown()
 	{

@@ -9,5 +9,6 @@ public class bullet extends Actor
 	public bullet(int dir, Location loc)
 	{
 		super(dir, loc);
+		
 	}
 }

@@ -1,12 +1,21 @@
+import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 
 public class Actor {
 	private int direction;
 	private Location location;
 
+	private Image image;
+
+
 	public Actor(int direction, Location location)
 	{
 		this.direction = direction;
 		this.location = location;
+		ImageIcon testActor = new ImageIcon("fish.gif"); 
+		image = testActor.getImage();
 	}
 
 	public int getDirection()
@@ -59,6 +68,13 @@ public class Actor {
 		//to be implemented
 		return true;
 	}
+
+	public void paint(Graphics g)
+	{
+		
+	}
 }
+
+
 
 

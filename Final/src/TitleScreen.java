@@ -15,7 +15,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 		Credits = new JButton("Credits");
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.ipady = 100;
+		gbc.ipady = 100; 
 		gbc.ipadx = 100;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.fill = GridBagConstraints.HORIZONTAL;

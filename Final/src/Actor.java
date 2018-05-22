@@ -15,7 +15,10 @@ public class Actor {
 		ImageIcon testActor = new ImageIcon("fish.gif"); 
 		image = testActor.getImage();
 	}
-
+    public Image getImage()
+    {
+    	return image;
+    }
 	public int getDirection()
 	{
 		return direction;
@@ -78,6 +81,7 @@ public class Actor {
 	{
 	}	
 }
+
 
 
 

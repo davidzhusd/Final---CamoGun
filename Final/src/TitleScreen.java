@@ -22,7 +22,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 		add(Play, gbc);
 		add(Instructions, gbc);
 		add(Credits, gbc);
-		Play.addActionListener(this);
+		Play.addActionListener(this); 
 		Instructions.addActionListener(this);
 		Credits.addActionListener(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

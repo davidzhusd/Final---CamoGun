@@ -42,11 +42,11 @@ public class Test extends JFrame implements ActionListener {
 	{
 		if (event.getSource() == Play)
 		{
-		//	x.displayGame();
+			// 	x.displayGame();
 		}
 	}
 	public static void main(String[] args) {
 		Test test = new Test();
-		
+
 	}
 }

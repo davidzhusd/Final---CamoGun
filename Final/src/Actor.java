@@ -68,8 +68,6 @@ public class Actor {
 	
 	public void paint()
 	{
-		super.repaint();
-	}
-	}
+		//super.repaint();
+	}	
 }
-*/

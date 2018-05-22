@@ -66,6 +66,11 @@ public class Actor {
 		return true;
 	}
 	
+	public void removeSelffromGrid()
+	{
+		//to be implemented
+	}
+	
 	public void paint();
 	{
 		super.repaint();

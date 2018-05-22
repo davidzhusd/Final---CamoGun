@@ -16,6 +16,7 @@ public class Location {
 	{
 		return col;
 	}
+	
 	public Location getAdjacentLocation(int direction)
 	{
 		int rowChange=0;

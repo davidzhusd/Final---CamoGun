@@ -1,12 +1,18 @@
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 
 public class Actor {
 	private int direction;
 	private Location location;
+	private Image image;
 	
 	public Actor(int direction, Location location)
 	{
 		this.direction = direction;
 		this.location = location;
+		ImageIcon testActor = new ImageIcon("fish.gif"); 
+		image = testActor.getImage();
 	}
 	
 	public int getDirection()
@@ -54,11 +60,16 @@ public class Actor {
 		direction = 180;
 	}
 	
-	public boolean canMove();
+	public boolean canMove()
 	{
 		//to be implemeted
 		return true;
 	}
-	}
 	
+	public void paint();
+	{
+		super.repaint();
+	}
+	}
 }
+*/

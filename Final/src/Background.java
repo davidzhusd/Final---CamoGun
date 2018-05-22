@@ -1,5 +1,5 @@
 import java.awt.Image;
-
+import javax.swing.ImageIcon;
 
 public class Background {
 
@@ -9,6 +9,8 @@ private Image image;
 public Background(Location loc)
 {
 	myLoc = loc;
+	ImageIcon testBackground = new ImageIcon ("grass.jpg");
+	image = testBackground.getImage();
 }
 
 public Location getLocation()

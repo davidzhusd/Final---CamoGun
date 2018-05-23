@@ -2,11 +2,12 @@
 public class Location {
 	private int row;
 	private int col;
-	public Location(int r, int c)
+	private Background back;
+	public Location(int r, int c, Background back)
 	{
 		row=r;
 		col=c;
-		
+		this.back = back;
 	}
 	public int getRow()
 	{
@@ -15,6 +16,11 @@ public class Location {
 	public int getCol()
 	{
 		return col;
+	}
+	
+	public Background getBackground()
+	{
+		return back;
 	}
 	
 	

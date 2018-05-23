@@ -3,6 +3,7 @@ import java.awt.Image;
 
 public class player extends Actor
 {
+	
 	private int direction;
 	private Location location;
 	private Image image;

@@ -18,6 +18,12 @@ public class Location {
 		return col;
 	}
 	
+	
+	public Background getAdjacentBackground(int direction)
+	{
+		return getAdjacentLocation(direction).getBackground();
+	}
+	
 	public Background getBackground()
 	{
 		return back;

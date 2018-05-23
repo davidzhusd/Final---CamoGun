@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -28,6 +28,7 @@ public class Actor {
 	{ 
 		return location;
 	}
+	
 
 	public void setDirection(int dir)
 	{
@@ -82,11 +83,6 @@ public class Actor {
 		//to be implemented
 	}
 	
-	public void paint();
-
-	public void paint(Graphics g)
-	{
-	}	
 }
 
 

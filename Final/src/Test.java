@@ -1,17 +1,12 @@
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
-/* w  w  w .  ja v  a  2 s  . c  o m*/
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 
 public class Test extends JFrame implements ActionListener {
 	JButton Play;

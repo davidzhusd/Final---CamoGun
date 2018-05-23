@@ -17,6 +17,7 @@ public class player extends Actor
 	public void moveRight()
 	{
 		location=new Location(location.getRow(),location.getCol()+1);
+
 	}
 	public void moveUp()
 	{

@@ -76,8 +76,6 @@ public class Actor {
 		//check if can move forward
 		return true;
 	}
-<<<<<<< HEAD
-	
 	
 	public void removeSelffromGrid()
 	{
@@ -85,10 +83,8 @@ public class Actor {
 	}
 	
 	public void paint();
-=======
 
 	public void paint(Graphics g)
->>>>>>> branch 'master' of https://github.com/chenner45/Final
 	{
 	}	
 }

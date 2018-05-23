@@ -17,23 +17,18 @@ public class player extends Actor
 	public void moveRight()
 	{
 		location=new Location(location.getRow(),location.getCol()+1);
-		
 	}
 	public void moveUp()
 	{
 		location=new Location(location.getRow()-1, location.getCol());
-		
-		
 	}
 	public void moveDown()
 	{
 		location =new Location(location.getRow()+1, location.getCol());
-		
 	}
 	public void shoot()
 	{
 		bullet bul=new bullet(getDirection(),getLocation());
-		
 	}
 	
 }

@@ -4,9 +4,9 @@ public class tile
 	private Location myLocation;
 	private Background myBackground;
 	private Actor myActor;
-	public tile(Location loc, Background back, Actor act)
+	public tile(int row, int col Background back, Actor act)
 	{
-		myLocation=loc;
+		myLocation=new Location(row, col);
 		myBackground=back;
 		myActor=act;
 	}

@@ -3,7 +3,7 @@ public class Grid {
 
 	private int numCol;
 	private int numRow;
-	private Tile[][] grid;
+	private Tile[][] grid; 
 	public Grid(int row, int col)
 	{
 		numCol = col;

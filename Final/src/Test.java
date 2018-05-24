@@ -37,11 +37,8 @@ public class Test extends JFrame implements ActionListener {
 	{
 		if (event.getSource() == Play)
 		{
-<<<<<<< HEAD
 			// 	x.displayGame();
-=======
 		// 	x.displayGame();
->>>>>>> branch 'master' of https://github.com/chenner45/Final
 		}
 	}
 	public static void main(String[] args) {

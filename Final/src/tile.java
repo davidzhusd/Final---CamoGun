@@ -3,12 +3,14 @@ public class tile
 {
 	private Location myLocation;
 	private Background myBackground;
-	private Actor myActor;
-	public tile(int row, int col Background back, Actor act)
+	private player myPlayer;
+	private bullet myBullet;
+	public tile(int row, int col, Background back, player play)
 	{
 		myLocation=new Location(row, col);
 		myBackground=back;
-		myActor=act;
+		myPlayer=play;
+		myBullet=null;
 	}
 	public Location getLocation()
 	{
@@ -18,9 +20,18 @@ public class tile
 	{
 		return myBackground;
 	}
-	public Actor getActor()
+	public Actor getPlayer()
 	{
-		return myActor;
+		return myPlayer;
+		
+	}
+	public void setPlayer(player P)
+	{
+		myPlayer=p;
+	}
+	public void receiveBullet(bullet B)
+	{
+		myBullet=B;
 		
 	}
 }

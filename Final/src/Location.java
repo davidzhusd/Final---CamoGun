@@ -2,12 +2,10 @@
 public class Location {
 	private int row;
 	private int col;
-	private Background back;
-	public Location(int r, int c, Background back)
+	public Location(int r, int c)
 	{
 		row=r;
 		col=c;
-		this.back = back;
 	}
 	public int getRow()
 	{
@@ -17,18 +15,6 @@ public class Location {
 	{
 		return col;
 	}
-	
-	
-	public Background getAdjacentBackground(int direction)
-	{
-		return getAdjacentLocation(direction).getBackground();
-	}
-	
-	public Background getBackground()
-	{
-		return back;
-	}
-	
 	
 	public Location getAdjacentLocation(int direction)
 	{

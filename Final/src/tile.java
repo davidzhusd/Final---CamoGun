@@ -27,7 +27,7 @@ public class tile
 	}
 	public void setPlayer(player P)
 	{
-		myPlayer=p;
+		myPlayer=P;
 	}
 	public void receiveBullet(bullet B)
 	{

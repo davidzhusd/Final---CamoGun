@@ -8,9 +8,9 @@ public class Puddle extends Background{
 
 private Image image;
 
-public Puddle(Location loc)
+public Puddle()
 {
-	super(loc);
+	super();
 	ImageIcon testBackground = new ImageIcon ("puddle.jpg");
 	image = testBackground.getImage();
 }

@@ -1,11 +1,11 @@
 
-public class tile 
+public class Tile 
 {
 	private Location myLocation;
 	private Background myBackground;
-	private player myPlayer;
-	private bullet myBullet;
-	public tile(int row, int col, Background back, player play)
+	private Player myPlayer;
+	private Bullet myBullet;
+	public Tile(int row, int col, Background back, Player play)
 	{
 		myLocation=new Location(row, col);
 		myBackground=back;
@@ -25,12 +25,12 @@ public class tile
 		return myPlayer;
 		
 	}
-	public void setPlayer(player P)
+	public void setPlayer(Player P)
 	{
 		myPlayer=P;
 		
 	}
-	public void receiveBullet(bullet B)
+	public void receiveBullet(Bullet B)
 	{
 		myBullet=B;
 		

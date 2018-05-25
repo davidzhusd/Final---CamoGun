@@ -1,5 +1,5 @@
 
-public class Player1 extends player
+public class Player1 extends Player
 {
 	private int direction;
 	private Location location;

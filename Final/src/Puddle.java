@@ -3,12 +3,12 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 
-public class puddle extends Background{
+public class Puddle extends Background{
 
 
 private Image image;
 
-public puddle(Location loc)
+public Puddle(Location loc)
 {
 	super(loc);
 	ImageIcon testBackground = new ImageIcon ("puddle.jpg");

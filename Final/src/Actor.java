@@ -5,13 +5,13 @@ import javax.swing.ImageIcon;
 
 public class Actor {
 	private int direction;
-	private Location location;
+	//private Location location;
 	private Image image;
 
-	public Actor(int direction, Location location)
+	public Actor(int direction)
 	{
 		this.direction = direction;
-		this.location = location;
+		//this.location = location;
 		ImageIcon testActor = new ImageIcon("fish.gif"); 
 		image = testActor.getImage();
 	}
@@ -24,7 +24,7 @@ public class Actor {
 		return direction;
 	}
 
-	public Location getLocation()
+	/*public Location getLocation()
 	{ 
 		return location;
 	}
@@ -82,7 +82,7 @@ public class Actor {
 	{
 		//to be implemented
 	}
-	
+	*/
 }
 
 

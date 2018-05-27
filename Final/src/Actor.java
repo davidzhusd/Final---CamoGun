@@ -7,6 +7,10 @@ public class Actor {
 	private int myDirection;
 	private Location myLocation;
 	private CellType myBack;
+	public Actor(int dir) 
+	{
+		myDirection = dir;
+	}
 	public Actor(int direction, Location location, CellType back)
 	{
 		myBack = back;

@@ -2,7 +2,7 @@
 public class MapAlternate {
 Tile[][] map;
 
-	public MapAlternate(int x)
+	public MapAlternate()
 	{
 		map = new Tile[10][10];
 	}

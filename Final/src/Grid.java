@@ -8,7 +8,7 @@ public class Grid {
 	{
 		numCol = col;
 		numRow = row;
-		grid = new Tile[row][col];
+		grid = new MapAlternate ().loadMap(0);
 	}
 	
 }

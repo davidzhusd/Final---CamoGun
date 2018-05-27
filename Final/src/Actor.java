@@ -4,85 +4,90 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Actor {
-	private int direction;
-	//private Location location;
-	private Image image;
-
-	public Actor(int direction)
+	private int myDirection;
+	private Location myLocation;
+	private CellType myBack;
+	public Actor(int direction, Location location, CellType back)
 	{
-		this.direction = direction;
-		//this.location = location;
-		ImageIcon testActor = new ImageIcon("fish.gif"); 
-		image = testActor.getImage();
+		myBack = back;
+		myDirection = direction;
+		myLocation = location;
 	}
-    public Image getImage()
-    {
-    	return image;
-    }
+	public void setBack(CellType type) 
+	{
+		myBack = type;
+	}
+	public CellType getBack() 
+	{
+		return myBack;
+	}
 	public int getDirection()
 	{
-		return direction;
+		return myDirection;
 	}
 
-	/*public Location getLocation()
+	public Location getLocation()
 	{ 
-		return location;
+		return myLocation;
 	}
 	
 
 	public void setDirection(int dir)
 	{
-		direction = dir;
+		myDirection = dir;
 	}
 
 	public void setLocation(Location loc)
 	{
-		location = loc;
+		myLocation = loc;
 	}
 
 	public void moveTo(Location loc)
 	{
-		location = loc;
+		myLocation = loc;
 	}
 	
 	public void moveForward()
 	{
-		if (canMove())
-			location = location.getAdjacentLocation(direction);
+		myLocation = myLocation.getAdjacentLocation(myDirection);
 	}
 
 	public void faceUp()
 	{
-		direction = 0;
+		myDirection = 0;
 	}
 
 	public void faceRight()
 	{
-		direction = 90;
+		myDirection = 90;
 	}
 
 	public void faceLeft()
 	{
-		direction = 270;
+		myDirection = 270;
 	}
 
 	public void faceBack()
 	{
-		direction = 180;
+		myDirection = 180;
 	}
 
-	public boolean canMove()
+	public boolean canMove(Map map)
 	{
-		Location newLoc = location.getAdjacentLocation(direction);
+		Location newLoc = myLocation.getAdjacentLocation(myDirection);
+		if (map.getCellType(newLoc.getRow(), newLoc.getCol()) != CellType.WALL && map.getCellType(newLoc.getRow(), newLoc.getCol()) != CellType.WAll_B) 
+		{
+			return true;
+		}
 		//check if can move forward
-		return true;
+		return false;
 	}
 	
 	public void removeSelffromGrid()
 	{
 		//to be implemented
 	}
-	*/
+	
 }
 
 

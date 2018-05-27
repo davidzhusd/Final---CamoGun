@@ -47,5 +47,4 @@ public class Location {
 		}
 		return new Location(row+rowChange, col+colChange);
 	}
-	
 }

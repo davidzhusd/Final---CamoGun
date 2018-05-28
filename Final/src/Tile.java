@@ -7,10 +7,16 @@ public class Tile {
 	private Actor myActor;
 	private Bullet myBullet;
 
-	public Tile(int row, int col, Background back, Player play) {
+	public Tile(int row, int col, Background back, Actor actor) {
 		myLocation = new Location(row, col);
 		myBackground = back;
-		myActor = play;
+		myActor = actor;
+		myBullet = new Bullet(0);
+	}
+	public Tile(int row, int col, Background back) {
+		myLocation = new Location(row, col);
+		myBackground = back;
+		myBullet = new Bullet(0);
 	}
 
 	public Location getLocation() {
@@ -29,8 +35,9 @@ public class Tile {
 		return myBullet;
 	}
 
-	public void setActor(Player P) {
-		myActor = P;
-
+	public void setActor(Actor actor) {
+		myActor = actor;
 	}
+
+	public void setBackground(Background back){}
 }

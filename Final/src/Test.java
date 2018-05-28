@@ -37,7 +37,7 @@ public class Test extends JFrame implements ActionListener {
 	{
 		if (event.getSource() == Play)
 		{
-			// 	x.displayGame();
+			 	//x.displayGame();
 		// 	x.displayGame();
 		}
 	}

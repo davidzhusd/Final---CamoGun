@@ -38,7 +38,7 @@ public class Actor {
 		return myLocation;
 	}
 
-	public ImageIcon getActorImage() {
+	public ImageIcon getImage() {
 		return actorImage;
 	}
 

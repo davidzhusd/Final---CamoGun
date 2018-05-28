@@ -1,5 +1,5 @@
 import javax.swing.*;
-
+import javax.swing.JLabel;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -22,6 +22,10 @@ public class TitleScreen extends JFrame implements ActionListener{
 		add(Play, gbc);
 		add(Instructions, gbc);
 		add(Credits, gbc);
+		JLabel label = new JLabel();
+		ImageIcon image = new ImageIcon("final/fish.gif");
+		label.setIcon(image);
+		add(label, gbc);
 		Play.addActionListener(this); 
 		Instructions.addActionListener(this);
 		Credits.addActionListener(this);

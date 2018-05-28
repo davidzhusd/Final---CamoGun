@@ -42,11 +42,11 @@ public class Map {
 	public JLabel[][] draw() 
 	{
 		JLabel[][] labels = new JLabel[10][10];
-		ImageIcon wall = new ImageIcon("brick-wall-pls.png");
+		ImageIcon wall = new ImageIcon("final/brick-wall-pls.png");
 		Image image = wall.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wall = new ImageIcon(newimg);  // transform it back
-		ImageIcon fish = new ImageIcon("fish.gif");
+		ImageIcon fish = new ImageIcon("final/fish.gif");
 		Image fishI = fish.getImage();
 		Image newFish = fishI.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
 		fish = new ImageIcon(newFish);

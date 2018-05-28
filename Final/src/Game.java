@@ -36,6 +36,7 @@ public class Game extends JFrame{
 		setVisible(true);
 		requestFocusInWindow();
 		addKeyListener(new KeyHandler());
+
 	}
 	public void initialize() 
 	{

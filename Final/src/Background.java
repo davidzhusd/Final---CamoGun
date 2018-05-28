@@ -7,7 +7,7 @@ public class Background {
     private Image image;
 
     public Background() {
-    backgroundImage = new ImageIcon("brick-wall.jpg");
+    backgroundImage = new ImageIcon("final/grass.jpg");
     image = backgroundImage.getImage();
     }
 

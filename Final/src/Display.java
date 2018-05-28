@@ -7,6 +7,10 @@ public class Display {
 	}
 	public void displayGame()
 	{
-		Game game = new Game(); 
+		Game game = new Game();
+	}
+	public void displayGameAlternate()
+	{
+		GameAlternate game = new GameAlternate(0,0);
 	}
 }

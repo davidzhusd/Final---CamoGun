@@ -9,7 +9,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 	JButton Instructions;
 	JButton Credits;
 	public TitleScreen() {
-		x = new Display();
+		x = new Display();	
 		Play = new JButton("Play");
 		Instructions = new JButton("Instructions");
 		Credits = new JButton("Credits");

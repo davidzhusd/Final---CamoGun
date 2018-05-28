@@ -22,7 +22,7 @@ public class Game extends JFrame{
 		labels = new JLabel[10][10];
 		getContentPane().setLayout(new GridLayout(10, 10));
 		map = new Map();
-		update();
+		initialize();
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				System.exit(0);
@@ -35,17 +35,21 @@ public class Game extends JFrame{
 		requestFocusInWindow();
 		addKeyListener(new KeyHandler());
 	}
-	public void update() 
+	public void initialize() 
 	{
-		System.out.println("update");
 		labels = map.draw();
 		for (int i = 0; i < 10; i++) 
 		{
 			for (int j = 0; j < 10; j++) 
 			{
-				add(labels[i][j]);
+				add(labels[i][j], i, j);
 			}
 		}
+	}
+	public void update() 
+	{
+		System.out.println("update");
+		labels = map.draw();
 	}
 	private class KeyHandler implements KeyListener {
 

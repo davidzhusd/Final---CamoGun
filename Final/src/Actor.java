@@ -7,9 +7,12 @@ public class Actor {
 	private int myDirection;
 	private Location myLocation;
 	private CellType myBack;
+	private Image image;
+	private ImageIcon actorImage;
 	public Actor(int dir) 
 	{
 		myDirection = dir;
+		actorImage = new ImageIcon("fish.gif");
 	}
 	public Actor(int direction, Location location, CellType back)
 	{
@@ -34,7 +37,10 @@ public class Actor {
 	{ 
 		return myLocation;
 	}
-	
+
+	public ImageIcon getActorImage() {
+		return actorImage;
+	}
 
 	public void setDirection(int dir)
 	{

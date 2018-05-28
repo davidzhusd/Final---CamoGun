@@ -1,38 +1,36 @@
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
-public class Tile 
-{
+public class Tile {
 	private Location myLocation;
 	private Background myBackground;
-	private Player myPlayer;
+	private Actor myActor;
 	private Bullet myBullet;
-	public Tile(int row, int col, Background back, Player play)
-	{
-		myLocation=new Location(row, col);
-		myBackground=back;
-		myPlayer=play;
-		myBullet=null;
+
+	public Tile(int row, int col, Background back, Player play) {
+		myLocation = new Location(row, col);
+		myBackground = back;
+		myActor = play;
 	}
-	public Location getLocation()
-	{
+
+	public Location getLocation() {
 		return myLocation;
 	}
-	public Background getBackground()
-	{
+
+	public Background getBackground() {
 		return myBackground;
 	}
-	public Actor getPlayer()
-	{
-		return myPlayer;
-		
+
+	public Actor getActor() {
+		return myActor;
 	}
-	public void setPlayer(Player P)
-	{
-		myPlayer=P;
-		
+
+	public Bullet getBullet(){
+		return myBullet;
 	}
-	public void receiveBullet(Bullet B)
-	{
-		myBullet=B;
-		
+
+	public void setActor(Player P) {
+		myActor = P;
+
 	}
 }

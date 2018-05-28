@@ -3,14 +3,23 @@ import javax.swing.ImageIcon;
 
 public class Background {
 
-private Image image;
+    private ImageIcon backgroundImage;
+    private Image image;
 
-public Background()
-{
+    public Background() {
+    backgroundImage = new ImageIcon("brick-wall.jpg");
+    image = backgroundImage.getImage();
+    }
 
+    public Image getImage() {
+        return image;
+    }
 
-}
-/*
+    public ImageIcon getBackgroundImage() {
+        return backgroundImage;
+    }
+
+    /*
 public Location getLocation()
 {
 	return myLoc;

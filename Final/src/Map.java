@@ -62,7 +62,7 @@ public class Map {
 				}
 				else if (map[i][j] == CellType.PLAYER_A) 
 				{
-					System.out.println("Yes");
+					System.out.println("MAP" + i + " " + j);
 					JLabel label = new JLabel();
 					label.setIcon(fish);
 					labels[i][j] = label;

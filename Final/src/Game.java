@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -22,6 +23,7 @@ public class Game extends JFrame{
 		labels = new JLabel[10][10];
 		getContentPane().setLayout(new GridLayout(10, 10));
 		map = new Map();
+		update();
 		initialize();
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
@@ -37,12 +39,11 @@ public class Game extends JFrame{
 	}
 	public void initialize() 
 	{
-		labels = map.draw();
 		for (int i = 0; i < 10; i++) 
 		{
 			for (int j = 0; j < 10; j++) 
 			{
-				add(labels[i][j], i, j);
+				add(labels[i][j]);
 			}
 		}
 	}
@@ -54,29 +55,27 @@ public class Game extends JFrame{
 	private class KeyHandler implements KeyListener {
 
 		public void keyPressed ( KeyEvent event )
-		{
-			System.out.println("ASDF");
+		{	
 			if (event.getKeyCode() == KeyEvent.VK_D) 
 			{
-				System.out.println("A");
 				if (player1.getDirection() != 90) 
 				{
-					System.out.println("ASDFDASFASDV");
 					player1.setDirection(90);
 					update();
 				}
 				else 
 				{
-					System.out.println("Nope");
-					System.out.println(player1.getDirection());
 					if (player1.canMove(map)) 
 					{
-						System.out.println(player1.getLocation().getCol());
 						int r = player1.getLocation().getRow();
-						int c = player2.getLocation().getCol();
+						int c = player1.getLocation().getCol();
 						player1.moveForward();
+						System.out.println(player1.getLocation().getRow() + " " + player1.getLocation().getCol());
 						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
 						update();
+						ImageIcon icon = new ImageIcon("brick-wall-pls.png");
+						labels[5][5].setIcon(icon);
+						System.out.println("GOT HERE");
 					}
 				}
 			}

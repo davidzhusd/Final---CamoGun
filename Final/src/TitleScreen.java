@@ -23,7 +23,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 		add(Instructions, gbc);
 		add(Credits, gbc);
 		JLabel label = new JLabel();
-		ImageIcon image = new ImageIcon("final/fish.gif");
+		ImageIcon image = new ImageIcon("fish.gif");
 		label.setIcon(image);
 		add(label, gbc);
 		Play.addActionListener(this); 

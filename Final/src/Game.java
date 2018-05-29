@@ -20,6 +20,8 @@ public class Game extends JFrame {
 	private Actor player2;
 	private JLabel[][] labels;
 	private Map map;
+	private Bullet bullet1;
+	private Bullet bullet2;
 	public Game()
 	{
 		player1 = new Actor(90, new Location(1, 1), CellType.EMPTY);
@@ -129,6 +131,15 @@ public class Game extends JFrame {
 			{
 				System.out.println("Fire 1");
 				player1.appear();
+				bullet1 = new Bullet(player1.getDirection());
+				class BulletListener implements ActionListener 
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+					}	
+				}
 				draw(map.updateMap());
 			}
 			if (event.getKeyCode() == KeyEvent.VK_L) 

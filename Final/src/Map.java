@@ -6,8 +6,10 @@ import javax.swing.JLabel;
 
 public class Map {
 	private CellType[][] map;
+	private CellType[][] mapOriginal;
 	public Map() 
 	{
+		mapOriginal = new CellType[10][10];
 		map = new CellType[10][10];
 		for (int i = 0; i < 10; i++) 
 		{
@@ -21,6 +23,12 @@ public class Map {
 		}
 		map[1][1] = CellType.PLAYER_A;
 		map[8][8] = CellType.PLAYER_B;
+		mapOriginal = map;
+	}
+	public void repair(int r, int c) 
+	{
+		System.out.println(mapOriginal[r][c]);
+		map[r][c] = CellType.EMPTY;
 	}
 	public CellType getCellType(int r, int c) 
 	{

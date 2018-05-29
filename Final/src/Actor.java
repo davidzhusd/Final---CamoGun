@@ -14,8 +14,9 @@ public class Actor {
 	public Actor() {}
 	public Actor(int dir) 
 	{
+		ClassLoader cldr = this.getClass().getClassLoader();
 		myDirection = dir;
-		actorImage = new ImageIcon("fish.gif");
+		actorImage = new ImageIcon(cldr.getResource("fish.gif"));
 	}
 	public void thisIsPlayerOne() 
 	{

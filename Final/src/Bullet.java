@@ -8,17 +8,32 @@ public class Bullet
 	private Image image;
 	private Location myLocation;
 	private boolean identifier;
+	private boolean active;
 	public Bullet(int direction, Location location){
+		active = false;
 		myLocation = location;
 		this.direction = direction;
+		ClassLoader cldr = this.getClass().getClassLoader();
 		if (direction%180 == 90) {
-			bulletImage = new ImageIcon("BulletHorizontal.png");
+			bulletImage = new ImageIcon(cldr.getResource("BulletHorizontal.png"));
 			image = bulletImage.getImage();
 		}
 		else {
-			bulletImage = new ImageIcon("BulletVertical.png");
+			bulletImage = new ImageIcon(cldr.getResource("BulletVertical.png"));
 			image = bulletImage.getImage();
 		}
+	}
+	public boolean isActive() 
+	{
+		return active;
+	}
+	public void setActive() 
+	{
+		active = true;
+	}
+	public void setInactive() 
+	{
+		active = false;
 	}
 	public void thisIsBullet1() 
 	{
@@ -50,11 +65,19 @@ public class Bullet
 	{
 		return myLocation;
 	}
+	public void setLocation(Location location) 
+	{
+		myLocation = location;
+	}
 	public ImageIcon getBulletImage() {
 		return bulletImage;
 	}
 	public boolean canMove(Map map) 
 	{
+		if (myLocation == null) 
+		{
+			return false;
+		}
 		Location newLoc = myLocation.getAdjacentLocation(this.direction);
 		int r = newLoc.getRow();
 		int c = newLoc.getCol();

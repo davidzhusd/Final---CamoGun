@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -23,8 +24,8 @@ public class Game extends JFrame{
 		labels = new JLabel[10][10];
 		getContentPane().setLayout(new GridLayout(10, 10));
 		map = new Map();
-		update();
 		initialize();
+		draw(map.updateMap());
 		addWindowListener(new java.awt.event.WindowAdapter() {
 			public void windowClosing(WindowEvent evt) {
 				System.exit(0);
@@ -44,14 +45,40 @@ public class Game extends JFrame{
 		{
 			for (int j = 0; j < 10; j++) 
 			{
+				JLabel label = new JLabel();
+				labels[i][j] = label;
 				add(labels[i][j]);
 			}
 		}
 	}
-	public void update() 
+	public void draw(CellType[][] map) 
 	{
-		System.out.println("update");
-		labels = map.draw();
+		ImageIcon wall = new ImageIcon("brick-wall-pls.png");
+		Image image = wall.getImage(); // transform it 
+		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		wall = new ImageIcon(newimg);  // transform it back
+		ImageIcon fish = new ImageIcon("player1.png");
+		Image fishI = fish.getImage();
+		Image newFish = fishI.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+		fish = new ImageIcon(newFish);
+		for (int i = 0; i < 10; i++) 
+		{
+			for (int j = 0; j < 10; j++) 
+			{
+				if (map[i][j] == (CellType.WALL)) 
+				{
+					labels[i][j].setIcon(wall);
+				}
+				else if (map[i][j] == CellType.PLAYER_A) 
+				{
+					labels[i][j].setIcon(fish);
+				}
+				else 
+				{
+					labels[i][j].setIcon(null);
+				}
+			}
+		}
 	}
 	private class KeyHandler implements KeyListener {
 
@@ -62,7 +89,6 @@ public class Game extends JFrame{
 				if (player1.getDirection() != 90) 
 				{
 					player1.setDirection(90);
-					update();
 				}
 				else 
 				{
@@ -71,17 +97,65 @@ public class Game extends JFrame{
 						int r = player1.getLocation().getRow();
 						int c = player1.getLocation().getCol();
 						player1.moveForward();
-						System.out.println(player1.getLocation().getRow() + " " + player1.getLocation().getCol());
 						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
-						update();
-						ImageIcon icon = new ImageIcon("brick-wall-pls.png");
-						labels[5][5].setIcon(icon);
-						System.out.println("GOT HERE");
+						draw(map.updateMap());
+					}
+				}
+			} else if (event.getKeyCode() == KeyEvent.VK_A) 
+			{
+				if (player1.getDirection() != 270) 
+				{
+					player1.setDirection(270);
+				}
+				else 
+				{
+					if (player1.canMove(map)) 
+					{
+						int r = player1.getLocation().getRow();
+						int c = player1.getLocation().getCol();
+						player1.moveForward();
+						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
+						draw(map.updateMap());
+						System.out.println("GOT HERE A");
+					}
+				}
+			} else if (event.getKeyCode() == KeyEvent.VK_S) 
+			{
+				if (player1.getDirection() != 180) 
+				{
+					player1.setDirection(180);
+				}
+				else 
+				{
+					if (player1.canMove(map)) 
+					{
+						int r = player1.getLocation().getRow();
+						int c = player1.getLocation().getCol();
+						player1.moveForward();
+						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
+						draw(map.updateMap());
+					}
+				}
+			} else if (event.getKeyCode() == KeyEvent.VK_W) 
+			{
+				if (player1.getDirection() != 0) 
+				{
+					player1.setDirection(0);
+				}
+				else 
+				{
+					if (player1.canMove(map)) 
+					{
+						int r = player1.getLocation().getRow();
+						int c = player1.getLocation().getCol();
+						player1.moveForward();
+						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
+						draw(map.updateMap());
 					}
 				}
 			}
 		}
-
+		
 		public void keyReleased (KeyEvent event )
 		{
 			// called when key is released after a keyPressed or 

@@ -34,10 +34,10 @@ Tile[][] map;
 		}
 		for (int x = 0; x < 10; x++)
 		{
-			map[0][x] = new Tile(0,x,new Background(), new Wall(0));
-			map[9][x] = new Tile(9,x,new Background(), new Wall(0));
-			map[x][0] = new Tile(x,0,new Background(), new Wall(0));
-			map[x][9] = new Tile(x,9,new Background(), new Wall(0));
+			map[0][x] = new Tile(0,x,new Background(), new Wall());
+			map[9][x] = new Tile(9,x,new Background(), new Wall());
+			map[x][0] = new Tile(x,0,new Background(), new Wall());
+			map[x][9] = new Tile(x,9,new Background(), new Wall());
 		}
 		map[5][1] = new Tile(5,1, new Background(), new Player1(0));
 		map[1][5] = new Tile(1,5, new Background(), new Player2(0));

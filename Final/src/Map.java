@@ -26,6 +26,10 @@ public class Map {
 	{
 		return map[r][c];
 	}
+	public CellType[][] updateMap() 
+	{
+		return map;
+	}
 	public void updatePlayer(int or, int oc, int r, int c, Actor player) 
 	{
 		map[or][oc] = CellType.EMPTY;
@@ -39,7 +43,7 @@ public class Map {
 	{
 		
 	}
-	public JLabel[][] draw() 
+	/*public JLabel[][] draw() 
 	{
 		JLabel[][] labels = new JLabel[10][10];
 		ImageIcon wall = new ImageIcon("brick-wall-pls.png");
@@ -75,5 +79,5 @@ public class Map {
 			}
 		}
 		return labels;
-	}
+	}*/
 }

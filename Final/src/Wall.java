@@ -13,3 +13,4 @@ public class Wall extends Actor
 		return image;
 	}
 }
+

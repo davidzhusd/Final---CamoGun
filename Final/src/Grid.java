@@ -1,4 +1,3 @@
-import javafx.scene.control.skin.TextInputControlSkin;
 
 import java.awt.Image;
 import java.awt.Graphics;

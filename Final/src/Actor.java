@@ -9,6 +9,7 @@ public class Actor {
 	private CellType myBack;
 	private Image image;
 	private ImageIcon actorImage;
+	public Actor() {}
 	public Actor(int dir) 
 	{
 		myDirection = dir;

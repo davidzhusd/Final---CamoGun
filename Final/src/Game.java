@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
 
 
@@ -38,7 +39,8 @@ public class Game extends JFrame{
 		setVisible(true);
 		requestFocusInWindow();
 		addKeyListener(new KeyHandler());
-
+		//Timer timer = new Timer(1000, this);
+	//	timer.start();
 	}
 	public void initialize() 
 	{
@@ -93,6 +95,11 @@ public class Game extends JFrame{
 
 		public void keyPressed ( KeyEvent event )
 		{	
+			if (event.getKeyCode() == KeyEvent.VK_SPACE) 
+			{
+				System.out.println("Fire 1");
+				
+			}
 			if (event.getKeyCode() == KeyEvent.VK_D) 
 			{
 				if (player1.getDirection() != 90) 

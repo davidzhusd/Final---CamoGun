@@ -1,9 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 public class GameAlternate extends JFrame {
 
@@ -31,6 +29,17 @@ public class GameAlternate extends JFrame {
         setVisible(true);
         requestFocusInWindow();
         addKeyListener(new KeyHandler());
+        class updateListener implements ActionListener
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                pane = grid.displayGrid();
+            }
+        }
+        ActionListener listen = new updateListener();
+        Timer timer = new Timer(30, listen);
+        timer.start();
     }
 
     private class KeyHandler implements KeyListener {

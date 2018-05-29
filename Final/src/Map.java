@@ -30,9 +30,17 @@ public class Map {
 	{
 		return map;
 	}
-	public void updateBullet(int or, int oc, int r, int c) 
+	public void updateBullet(int or, int oc, int r, int c, Bullet bullet) 
 	{
-		
+		map[or][oc] = CellType.EMPTY;
+		if (bullet.amIBullet1()) 
+		{
+			map[r][c] = CellType.BULLET1;
+		}
+		else 
+		{
+			map[r][c] = CellType.BULLET2;
+		}
 	}
 	public void updatePlayer(int or, int oc, int r, int c, Actor player) 
 	{

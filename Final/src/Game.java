@@ -22,6 +22,11 @@ public class Game extends JFrame {
 	private Map map;
 	private Bullet bullet1;
 	private Bullet bullet2;
+	private ImageIcon bulletH;
+	private ImageIcon bulletV;
+	private ImageIcon wall;
+	private ImageIcon player1I;
+	private ImageIcon player2I;
 	public Game()
 	{
 		player1 = new Actor(90, new Location(1, 1), CellType.EMPTY);
@@ -74,18 +79,26 @@ public class Game extends JFrame {
 	}
 	public void draw(CellType[][] map) 
 	{
-		ImageIcon wall = new ImageIcon("brick-wall-pls.png");
+		wall = new ImageIcon("brick-wall-pls.png");
 		Image image = wall.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wall = new ImageIcon(newimg);  // transform it back
-		ImageIcon player1 = new ImageIcon("player1.png");
-		Image player1img = player1.getImage();
+		player1I = new ImageIcon("player1.png");
+		Image player1img = player1I.getImage();
 		Image newPlayer1 = player1img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-		player1 = new ImageIcon(newPlayer1);
-		ImageIcon player2 = new ImageIcon("player2.png");
-		Image player2img = player2.getImage();
+		player1I = new ImageIcon(newPlayer1);
+		player2I = new ImageIcon("player2.png");
+		Image player2img = player2I.getImage();
 		Image newPlayer2 = player2img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-		player2 = new ImageIcon(newPlayer2);
+		player2I = new ImageIcon(newPlayer2);
+		bulletH = new ImageIcon("BulletHorizontal.png");
+		Image bulletHimg = bulletH.getImage();
+		Image newBulletH = bulletHimg.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+		bulletH = new ImageIcon(newBulletH);
+		bulletV = new ImageIcon("BulletVertical.png");
+		Image bulletVimg = bulletV.getImage();
+		Image newBulletV = bulletVimg.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+		bulletV = new ImageIcon(newBulletV);
 		for (int i = 0; i < 10; i++) 
 		{
 			for (int j = 0; j < 10; j++) 
@@ -103,7 +116,7 @@ public class Game extends JFrame {
 					} else 
 					{
 						System.out.println("appear");
-						labels[i][j].setIcon(player1);
+						labels[i][j].setIcon(player1I);
 					}
 				}
 				else if (map[i][j] == CellType.PLAYER_B) 
@@ -113,8 +126,16 @@ public class Game extends JFrame {
 						labels[i][j].setIcon(null);
 					} else 
 					{
-						labels[i][j].setIcon(player2);
+						labels[i][j].setIcon(player2I);
 					}
+				}
+				else if (map[i][j] == CellType.BULLET1) 
+				{
+					
+				}
+				else if (map[i][j] == CellType.BULLET2) 
+				{
+					
 				}
 				else 
 				{
@@ -131,13 +152,17 @@ public class Game extends JFrame {
 			{
 				System.out.println("Fire 1");
 				player1.appear();
-				bullet1 = new Bullet(player1.getDirection());
+				bullet1 = new Bullet(player1.getDirection(), player1.getLocation());
 				class BulletListener implements ActionListener 
 				{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						
+						int r = bullet1.getLocation().getRow();
+						int c = bullet1.getLocation().getCol();
+						bullet1.moveForward();
+						map.updateBullet(r, c, bullet1.getLocation().getRow(), bullet1.getLocation().getCol(), bullet1);
+						draw(map.updateMap());
 					}	
 				}
 				draw(map.updateMap());

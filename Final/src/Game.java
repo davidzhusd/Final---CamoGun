@@ -41,7 +41,7 @@ public class Game extends JFrame {
 		bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
 		labels = new JLabel[10][10];
 		getContentPane().setLayout(new GridLayout(10, 10));
-		map = new Map();
+		map = new Map(1);
 		initialize();
 		draw(map.updateMap());
 		addWindowListener(new java.awt.event.WindowAdapter() {

@@ -100,7 +100,6 @@ public class Actor {
 		{
 			return true;
 		}
-		//check if can move forward
 		return false;
 	}
 	

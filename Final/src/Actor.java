@@ -10,6 +10,7 @@ public class Actor {
 	private Image image;
 	private ImageIcon actorImage;
 	private boolean playerIdentifier;
+	private boolean playerInvis;
 	public Actor() {}
 	public Actor(int dir) 
 	{
@@ -19,6 +20,18 @@ public class Actor {
 	public void thisIsPlayerOne() 
 	{
 		playerIdentifier = true;
+	}
+	public void goInvis() 
+	{
+		playerInvis = true;
+	}
+	public boolean invis() 
+	{
+		return playerInvis;
+	}
+	public void appear() 
+	{
+		playerInvis = false;
 	}
 	public boolean amIPlayerOne() 
 	{

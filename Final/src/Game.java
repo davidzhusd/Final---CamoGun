@@ -1,6 +1,8 @@
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -12,7 +14,7 @@ import javax.swing.Timer;
 
 
 
-public class Game extends JFrame{
+public class Game extends JFrame {
 //	Grid gr;
 	private Actor player1;
 	private Actor player2;
@@ -22,7 +24,9 @@ public class Game extends JFrame{
 	{
 		player1 = new Actor(90, new Location(1, 1), CellType.EMPTY);
 		player1.thisIsPlayerOne();
+		player1.goInvis();
 		player2 = new Actor(0, new Location(8, 8), CellType.EMPTY);
+		player2.goInvis();
 		labels = new JLabel[10][10];
 		getContentPane().setLayout(new GridLayout(10, 10));
 		map = new Map();
@@ -39,8 +43,20 @@ public class Game extends JFrame{
 		setVisible(true);
 		requestFocusInWindow();
 		addKeyListener(new KeyHandler());
-		//Timer timer = new Timer(1000, this);
-	//	timer.start();
+		class InvisListener implements ActionListener
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				player1.goInvis();
+				player2.goInvis();
+				draw(map.updateMap());
+			}
+			
+		}
+		ActionListener listen = new InvisListener();
+		Timer timer = new Timer(2000, listen);
+		timer.start();
 	}
 	public void initialize() 
 	{
@@ -78,11 +94,25 @@ public class Game extends JFrame{
 				}
 				else if (map[i][j] == CellType.PLAYER_A) 
 				{
-					labels[i][j].setIcon(player1);
+					if (this.player1.invis()) 
+					{
+						System.out.println("invis");
+						labels[i][j].setIcon(null);
+					} else 
+					{
+						System.out.println("appear");
+						labels[i][j].setIcon(player1);
+					}
 				}
 				else if (map[i][j] == CellType.PLAYER_B) 
 				{
-					labels[i][j].setIcon(player2);
+					if (this.player2.invis()) 
+					{
+						labels[i][j].setIcon(null);
+					} else 
+					{
+						labels[i][j].setIcon(player2);
+					}
 				}
 				else 
 				{
@@ -92,13 +122,20 @@ public class Game extends JFrame{
 		}
 	}
 	private class KeyHandler implements KeyListener {
-
+		
 		public void keyPressed ( KeyEvent event )
 		{	
 			if (event.getKeyCode() == KeyEvent.VK_SPACE) 
 			{
 				System.out.println("Fire 1");
-				
+				player1.appear();
+				draw(map.updateMap());
+			}
+			if (event.getKeyCode() == KeyEvent.VK_L) 
+			{
+				System.out.println("fire 2");
+				player2.appear();
+				draw(map.updateMap());
 			}
 			if (event.getKeyCode() == KeyEvent.VK_D) 
 			{

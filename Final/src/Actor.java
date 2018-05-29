@@ -9,11 +9,20 @@ public class Actor {
 	private CellType myBack;
 	private Image image;
 	private ImageIcon actorImage;
+	private boolean playerIdentifier;
 	public Actor() {}
 	public Actor(int dir) 
 	{
 		myDirection = dir;
 		actorImage = new ImageIcon("fish.gif");
+	}
+	public void thisIsPlayerOne() 
+	{
+		playerIdentifier = true;
+	}
+	public boolean amIPlayerOne() 
+	{
+		return playerIdentifier;
 	}
 	public Actor(int direction, Location location, CellType back)
 	{
@@ -86,7 +95,8 @@ public class Actor {
 	public boolean canMove(Map map)
 	{
 		Location newLoc = myLocation.getAdjacentLocation(myDirection);
-		if (map.getCellType(newLoc.getRow(), newLoc.getCol()) != CellType.WALL && map.getCellType(newLoc.getRow(), newLoc.getCol()) != CellType.WAll_B) 
+		if (map.getCellType(newLoc.getRow(), newLoc.getCol()) != CellType.WALL && map.getCellType(newLoc.getRow(), newLoc.getCol()) != CellType.WAll_B
+				&& map.getCellType(newLoc.getRow(), newLoc.getCol()) != CellType.PLAYER_B && map.getCellType(newLoc.getRow(), newLoc.getCol()) != CellType.PLAYER_A) 
 		{
 			return true;
 		}

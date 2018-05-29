@@ -20,6 +20,7 @@ public class Game extends JFrame{
 	public Game()
 	{
 		player1 = new Actor(90, new Location(1, 1), CellType.EMPTY);
+		player1.thisIsPlayerOne();
 		player2 = new Actor(0, new Location(8, 8), CellType.EMPTY);
 		labels = new JLabel[10][10];
 		getContentPane().setLayout(new GridLayout(10, 10));
@@ -57,10 +58,14 @@ public class Game extends JFrame{
 		Image image = wall.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wall = new ImageIcon(newimg);  // transform it back
-		ImageIcon fish = new ImageIcon("player1.png");
-		Image fishI = fish.getImage();
-		Image newFish = fishI.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-		fish = new ImageIcon(newFish);
+		ImageIcon player1 = new ImageIcon("player1.png");
+		Image player1img = player1.getImage();
+		Image newPlayer1 = player1img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+		player1 = new ImageIcon(newPlayer1);
+		ImageIcon player2 = new ImageIcon("player2.png");
+		Image player2img = player2.getImage();
+		Image newPlayer2 = player2img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+		player2 = new ImageIcon(newPlayer2);
 		for (int i = 0; i < 10; i++) 
 		{
 			for (int j = 0; j < 10; j++) 
@@ -71,7 +76,11 @@ public class Game extends JFrame{
 				}
 				else if (map[i][j] == CellType.PLAYER_A) 
 				{
-					labels[i][j].setIcon(fish);
+					labels[i][j].setIcon(player1);
+				}
+				else if (map[i][j] == CellType.PLAYER_B) 
+				{
+					labels[i][j].setIcon(player2);
 				}
 				else 
 				{
@@ -150,6 +159,76 @@ public class Game extends JFrame{
 						int c = player1.getLocation().getCol();
 						player1.moveForward();
 						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
+						draw(map.updateMap());
+					}
+				}
+				
+			} else if (event.getKeyCode() == KeyEvent.VK_RIGHT) 
+			{
+				if (player2.getDirection() != 90) 
+				{
+					player2.setDirection(90);
+				}
+				else 
+				{
+					if (player2.canMove(map)) 
+					{
+						int r = player2.getLocation().getRow();
+						int c = player2.getLocation().getCol();
+						player2.moveForward();
+						map.updatePlayer(r, c, player2.getLocation().getRow(), player2.getLocation().getCol(), player2);
+						draw(map.updateMap());
+					}
+				}
+			} else if (event.getKeyCode() == KeyEvent.VK_LEFT) 
+			{
+				if (player2.getDirection() != 270) 
+				{
+					player2.setDirection(270);
+				}
+				else 
+				{
+					if (player2.canMove(map)) 
+					{
+						int r = player2.getLocation().getRow();
+						int c = player2.getLocation().getCol();
+						player2.moveForward();
+						map.updatePlayer(r, c, player2.getLocation().getRow(), player2.getLocation().getCol(), player2);
+						draw(map.updateMap());
+						System.out.println("GOT HERE A");
+					}
+				}
+			} else if (event.getKeyCode() == KeyEvent.VK_DOWN) 
+			{
+				if (player2.getDirection() != 180) 
+				{
+					player2.setDirection(180);
+				}
+				else 
+				{
+					if (player2.canMove(map)) 
+					{
+						int r = player2.getLocation().getRow();
+						int c = player2.getLocation().getCol();
+						player2.moveForward();
+						map.updatePlayer(r, c, player2.getLocation().getRow(), player2.getLocation().getCol(), player2);
+						draw(map.updateMap());
+					}
+				}
+			} else if (event.getKeyCode() == KeyEvent.VK_UP) 
+			{
+				if (player2.getDirection() != 0) 
+				{
+					player2.setDirection(0);
+				}
+				else 
+				{
+					if (player2.canMove(map)) 
+					{
+						int r = player2.getLocation().getRow();
+						int c = player2.getLocation().getCol();
+						player2.moveForward();
+						map.updatePlayer(r, c, player2.getLocation().getRow(), player2.getLocation().getCol(), player2);
 						draw(map.updateMap());
 					}
 				}

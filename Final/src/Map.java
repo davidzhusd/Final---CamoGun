@@ -33,7 +33,13 @@ public class Map {
 	public void updatePlayer(int or, int oc, int r, int c, Actor player) 
 	{
 		map[or][oc] = CellType.EMPTY;
-		map[r][c] = CellType.PLAYER_A;
+		if (player.amIPlayerOne()) 
+		{
+			map[r][c] = CellType.PLAYER_A;
+		} else 
+		{
+			map[r][c] = CellType.PLAYER_B;
+		}
 	}
 	public void change(CellType type, int r, int c) 
 	{

@@ -6,8 +6,10 @@ import javax.swing.JLabel;
 
 public class Map {
 	private CellType[][] map;
+	private CellType[][] mapOriginal;
 	public Map() 
 	{
+		mapOriginal = new CellType[10][10];
 		map = new CellType[10][10];
 		for (int i = 0; i < 10; i++) 
 		{
@@ -21,6 +23,12 @@ public class Map {
 		}
 		map[1][1] = CellType.PLAYER_A;
 		map[8][8] = CellType.PLAYER_B;
+		mapOriginal = map;
+	}
+	public void repair(int r, int c) 
+	{
+		System.out.println(mapOriginal[r][c]);
+		map[r][c] = CellType.EMPTY;
 	}
 	public Map(int alternate)
 	{
@@ -90,9 +98,17 @@ public class Map {
 	{
 		return map;
 	}
-	public void updateBullet(int or, int oc, int r, int c) 
+	public void updateBullet(int or, int oc, int r, int c, Bullet bullet) 
 	{
-		
+		map[or][oc] = CellType.EMPTY;
+		if (bullet.amIBullet1()) 
+		{
+			map[r][c] = CellType.BULLET1;
+		}
+		else 
+		{
+			map[r][c] = CellType.BULLET2;
+		}
 	}
 	public void updatePlayer(int or, int oc, int r, int c, Actor player) 
 	{

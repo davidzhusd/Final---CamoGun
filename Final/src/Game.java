@@ -113,7 +113,6 @@ public class Game extends JFrame {
 	}
 	public void draw(CellType[][] map) 
 	{
-
 		for (int i = 0; i < 10; i++) 
 		{
 			for (int j = 0; j < 10; j++) 
@@ -124,11 +123,13 @@ public class Game extends JFrame {
 				}
 				else if (map[i][j] == CellType.PLAYER_A) 
 				{
-					if (this.player1.invis()) 
+					if (player1.invis()) 
 					{
+						System.out.println("invis");
 						labels[i][j].setIcon(null);
 					} else 
 					{
+						System.out.println("appear");
 						labels[i][j].setIcon(player1I);
 					}
 				}
@@ -149,7 +150,7 @@ public class Game extends JFrame {
 				}
 				else if (map[i][j] == CellType.BULLET2) 
 				{
-
+					labels[i][j].setIcon(bullet2I);
 				}
 				else 
 				{
@@ -160,7 +161,6 @@ public class Game extends JFrame {
 	}
 	public void fire(Actor player, Bullet bullet) 
 	{
-		System.out.println("AS");
 		bullet.setActive();
 		player.appear();
 		draw(map.updateMap());
@@ -170,6 +170,7 @@ public class Game extends JFrame {
 			bullet1I = bullet.getBulletImage();
 		} else 
 		{
+			System.out.println("TEST");
 			bullet2I = bullet.getBulletImage();
 		}
 	}
@@ -198,6 +199,7 @@ public class Game extends JFrame {
 			{
 				if (!bullet2.isActive()) 
 				{
+					System.out.println("in");
 					bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
 					bullet2.setActive();
 					fire(player2, bullet2);

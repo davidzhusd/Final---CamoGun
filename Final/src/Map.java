@@ -62,6 +62,7 @@ public class Map {
 		map[7][3]=CellType.WALL;
 		map[1][4]=CellType.WALL;
 		map[2][4]=CellType.WALL;
+		
 		map[3][4]=CellType.WALL;
 		map[4][4]=CellType.BUSH;
 		map[5][4]=CellType.WALL;

@@ -38,13 +38,15 @@ public class Game extends JFrame {
 	private ImageIcon revealerI;
 	private Shield shield;
 	private Revealer revealer;
+	private Timer timerR1;
+	private Timer timerR2;
 	public Game()
 	{
 		startBtimers();
+		startRevealTimers();
 		images();
 		shield = new Shield(null);
 		revealer = new Revealer(null);
-		
 		x = new Display();
 		player1 = new Actor(90, new Location(1, 1), CellType.EMPTY);
 		player1.thisIsPlayerOne();
@@ -91,6 +93,15 @@ public class Game extends JFrame {
 		map.updateOriginalCell(2, 2, CellType.REVEALER);
 		map.updateOriginalCell(2, 4, CellType.SHIELD);
 	}
+	public void startRevealTimers() 
+	{
+		ActionListener listenR1 = new RevealListener1();
+		timerR1 = new Timer(1000, listenR1);
+		timerR1.start();
+		ActionListener listenR2 = new RevealListener2();
+		timerR2 = new Timer(1000, listenR2);
+		timerR2.start();
+	}
 	public void startBtimers() 
 	{
 		ActionListener listenB1 = new BulletListener1();
@@ -109,6 +120,33 @@ public class Game extends JFrame {
 			refreshPlayer(player2);
 			draw(map.updateMap());
 		}	
+	}
+	public class RevealListener1 implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (player1.revealed()) 
+			{
+				player1.setInvis(true);
+				player1.updateReveal();
+				player1.appear();
+				draw(map.updateMap());
+			}
+		}
+	}
+	public class RevealListener2 implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if (player2.revealed()) 
+			{
+				player2.setInvis(true);
+				player2.updateReveal();
+				player2.appear();
+				draw(map.updateMap());
+			}
+		}
 	}
 	public class BulletListener1 implements ActionListener 
 	{
@@ -204,6 +242,12 @@ public class Game extends JFrame {
 		}
 		if (bullet1.getLocation().equals(player2.getLocation())) 
 		{
+			if (player2.extraLife()) 
+			{
+				player2.appear();
+				player2.setExtraLife(false);
+				return false;
+			}
 			timerB1.stop();
 			timerB2.stop();
 			return true;
@@ -218,6 +262,12 @@ public class Game extends JFrame {
 		}
 		if (bullet2.getLocation().equals(player1.getLocation())) 
 		{
+			if (player1.extraLife()) 
+			{
+				player1.appear();
+				player1.setExtraLife(false);
+				return false;
+			}
 			timerB1.stop();
 			timerB2.stop();
 			return true;
@@ -328,8 +378,6 @@ public class Game extends JFrame {
 			int r = player.getLocation().getRow();
 			int c = player.getLocation().getCol();
 			player.moveForward();
-			System.out.println(shield.getLocation().getRow() + " " + shield.getLocation().getCol());
-			System.out.println(player.getLocation().getRow() + " " + player.getLocation().getCol());
 			if (touchingShield(player)) 
 			{
 				map.updateCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);
@@ -473,7 +521,7 @@ public class Game extends JFrame {
 		}
 		if (player.getLocation().equals(shield.getLocation())) 
 		{
-			shield.activate();
+			shield.activate(player);
 			return true;
 		}
 		return false;
@@ -482,13 +530,19 @@ public class Game extends JFrame {
 	{
 		if (player.getLocation() == null) 
 		{
-			System.out.println("SHIELD ACTIVATED");
 			return false;
 		}
 		if (player.getLocation().equals(revealer.getLocation())) 
 		{
-			revealer.activate();
-			System.out.println("REVEALER ACTIVATED");
+			if (player.amIPlayerOne()) 
+			{
+				System.out.println("player2");
+				revealer.activate(player2);
+			} else 
+			{
+				System.out.println("player1");
+				revealer.activate(player1);
+			}
 			return true;
 		}
 		return false;
@@ -497,7 +551,7 @@ public class Game extends JFrame {
 	{
 		ClassLoader cldr = this.getClass().getClassLoader();
 		wall = new ImageIcon(cldr.getResource("brick-wall-pls.png"));
-		Image image = wall.getImage(); // transform it  
+		Image image = wall.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wall = new ImageIcon(newimg);  // transform it back
 		bush = new ImageIcon(cldr.getResource("grass.jpg"));

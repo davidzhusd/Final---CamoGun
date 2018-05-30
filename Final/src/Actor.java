@@ -21,10 +21,18 @@ public class Actor {
 	private boolean playerIdentifier;
 	private boolean playerInvis;
 	private boolean extraLife;
+	private int reveal;
+	private boolean hasReveal;
+	private boolean cantgoinvis;
 	public Actor() {}
 	public Actor(int dir) 
 	{
 		myDirection = dir;
+		cantgoinvis = false;
+	}
+	public void setInvis(boolean value) 
+	{
+		cantgoinvis = value;
 	}
 	public void thisIsPlayerOne() 
 	{
@@ -32,7 +40,16 @@ public class Actor {
 	}
 	public void goInvis() 
 	{
-		playerInvis = true;
+		if (cantgoinvis) 
+		{
+			System.out.println("Cant");
+			playerInvis = false;
+		}
+		else 
+		{
+			System.out.println("can");
+			playerInvis = true;
+		}
 	}
 	public boolean invis() 
 	{
@@ -48,11 +65,39 @@ public class Actor {
 	}
 	public void addRevealer() 
 	{
-		
+		reveal = 7;
+		hasReveal = true;	
+	}
+	public boolean revealed() 
+	{
+		return hasReveal;
+	}
+	public void updateReveal() 
+	{
+		if (reveal == 0) 
+		{
+			System.out.println("END");
+			cantgoinvis = false;
+			hasReveal = false;
+			reveal = 7;
+		}
+		reveal--;
+	}
+	public boolean cant() 
+	{
+		return cantgoinvis;
 	}
 	public void addShield() 
 	{
 		extraLife = true;
+	}
+	public boolean extraLife() 
+	{
+		return extraLife;
+	}
+	public void setExtraLife(boolean value) 
+	{
+		extraLife = value;
 	}
 	public Actor(int direction, Location location, CellType back)
 	{
@@ -112,7 +157,6 @@ public class Actor {
 	}
 
 	public ImageIcon getImage() {
-		System.out.println("TEST");
 		if (amIPlayerOne()) 
 		{
 			if (getDirection() == 0) 
@@ -120,7 +164,6 @@ public class Actor {
 				return actorImage1U;
 			} else if (getDirection() == 90) 
 			{
-				System.out.println("pic");
 				return actorImage1R;
 			} else if (getDirection() == 180)
 			{

@@ -4,8 +4,8 @@ public class Revealer extends Item {
 	{
 		super(loc);
 	}
-	public void activate() 
+	public void activate(Actor player) 
 	{
-		super.player.addRevealer();
+		player.addRevealer();
 	}
 }

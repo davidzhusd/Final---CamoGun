@@ -93,6 +93,8 @@ public class Game extends JFrame {
 			moveBullet(bullet1);
 			if (bullet1TouchingPlayer2()) 
 			{
+				player2.appear();
+				draw(map.updateMap());
 				x.displayOneWIN();
 			}
 		}	
@@ -105,6 +107,8 @@ public class Game extends JFrame {
 			moveBullet(bullet2);
 			if (bullet2TouchingPlayer1()) 
 			{
+				player1.appear();
+				draw(map.updateMap());
 				x.displayTwoWIN();
 			}
 		}	
@@ -462,7 +466,7 @@ public class Game extends JFrame {
 		Image puddle1 = puddle.getImage(); // transform it 
 		Image newpuddle = puddle1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		puddle = new ImageIcon(newpuddle);  // transform it back
-		wallb = new ImageIcon(cldr.getResource("wallb.png"));
+		wallb = new ImageIcon(cldr.getResource("breakableBox.png"));
 		Image wall1 = wallb.getImage(); // transform it 
 		Image newwallb = wall1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wallb = new ImageIcon(newwallb);  // transform it back

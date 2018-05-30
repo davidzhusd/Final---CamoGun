@@ -43,6 +43,7 @@ public class Map {
 			map[i][0] = CellType.WALL;
 			map[i][9] = CellType.WALL;
 		}
+		map[2][1] = CellType.PUDDLE;
 		map[1][1] = CellType.PLAYER_A;
 		map[8][8] = CellType.PLAYER_B;
 		map[4][1]= CellType.BUSH;
@@ -53,7 +54,7 @@ public class Map {
 		map[1][2]=CellType.PUDDLE;
 		map[2][2]=CellType.EMPTY;
 		map[3][2]=CellType.WALL;
-		map[4][2]=CellType.WALL;
+		map[4][2]=CellType.WAll_B;
 		map[5][2]=CellType.WALL;
 		map[7][2]=CellType.WALL;
 		map[1][3]=CellType.PUDDLE;
@@ -73,7 +74,7 @@ public class Map {
 		map[7][5]=CellType.WALL;
 		map[8][5]=CellType.PUDDLE;
 		map[1][6]=CellType.WALL;
-		map[3][6]=CellType.WALL;
+		map[3][6]=CellType.WAll_B;
 		map[7][6]=CellType.PUDDLE;
 		map[8][6]=CellType.PUDDLE;
 		map[1][7]=CellType.WALL;
@@ -86,7 +87,7 @@ public class Map {
 		map[3][8]=CellType.PUDDLE;
 		map[4][8]=CellType.BUSH;
 		map[5][8]=CellType.BUSH;
-		map[6][8]=CellType.WAll_B;
+		map[6][8]=CellType.WALL;
 		map[7][8]=CellType.WAll_B;
 		//
 		for (int i = 0; i < 10; i++) 

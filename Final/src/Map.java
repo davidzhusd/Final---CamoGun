@@ -91,57 +91,23 @@ public class Map {
 		//
 		for (int i = 0; i < 10; i++) 
 		{
+			for (int j = 0; j < 10; j++) 
+			{
+				mapOriginal[i][j] = map[i][j];
+			}
 			mapOriginal[0][i] = CellType.WALL;
 			mapOriginal[9][i] = CellType.WALL;
 		}
-		for (int i = 1; i < 9; i++) 
-		{
-			mapOriginal[i][0] = CellType.WALL;
-			mapOriginal[i][9] = CellType.WALL;
-		}
-		mapOriginal[4][1]= CellType.BUSH;
-		mapOriginal[5][1]=CellType.BUSH;
-		mapOriginal[6][1]=CellType.BUSH;
-		mapOriginal[7][1]=CellType.BUSH;
-		mapOriginal[8][1]=CellType.BUSH;
-		mapOriginal[1][2]=CellType.PUDDLE;
-		mapOriginal[2][2]=CellType.EMPTY;
-		mapOriginal[3][2]=CellType.WALL;
-		mapOriginal[4][2]=CellType.WALL;
-		mapOriginal[5][2]=CellType.WALL;
-		mapOriginal[7][2]=CellType.WALL;
-		mapOriginal[1][3]=CellType.PUDDLE;
-		mapOriginal[2][3]=CellType.PUDDLE;
-		mapOriginal[5][3]=CellType.WALL;
-		mapOriginal[7][3]=CellType.WALL;
-		mapOriginal[1][4]=CellType.WALL;
-		mapOriginal[2][4]=CellType.EMPTY;
-		mapOriginal[3][4]=CellType.WALL;
-		mapOriginal[4][4]=CellType.BUSH;
-		mapOriginal[5][4]=CellType.WALL;
-		mapOriginal[6][4]=CellType.WAll_B;
-		mapOriginal[7][4]=CellType.WALL;
-		mapOriginal[3][5]=CellType.WALL;
-		mapOriginal[4][5]=CellType.BUSH;
-		mapOriginal[5][5]=CellType.WALL;
-		mapOriginal[7][5]=CellType.WALL;
-		mapOriginal[8][5]=CellType.PUDDLE;
-		mapOriginal[1][6]=CellType.WALL;
-		mapOriginal[3][6]=CellType.WALL;
-		mapOriginal[7][6]=CellType.PUDDLE;
-		mapOriginal[8][6]=CellType.PUDDLE;
-		mapOriginal[1][7]=CellType.WALL;
-		mapOriginal[3][7]=CellType.WALL;
-		mapOriginal[6][7]=CellType.WAll_B;
-		mapOriginal[7][7]=CellType.WAll_B;
-		mapOriginal[8][7]=CellType.BUSH;
-		mapOriginal[1][8]=CellType.PUDDLE;
-		mapOriginal[2][8]=CellType.PUDDLE;
-		mapOriginal[3][8]=CellType.PUDDLE;
-		mapOriginal[4][8]=CellType.BUSH;
-		mapOriginal[5][8]=CellType.BUSH;
-		mapOriginal[6][8]=CellType.WAll_B;
-		mapOriginal[7][8]=CellType.WAll_B;
+		mapOriginal[1][1] = CellType.EMPTY;
+		mapOriginal[8][8] = CellType.EMPTY;
+	}
+	public void updateCell(int r, int c, CellType type) 
+	{
+		map[r][c] = type;
+	}
+	public void updateOriginalCell(int r, int c, CellType type) 
+	{
+		mapOriginal[r][c] = type;
 	}
 	public CellType getCellType(int r, int c) 
 	{

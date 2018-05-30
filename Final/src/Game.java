@@ -42,9 +42,9 @@ public class Game extends JFrame {
 		timerOnB2 = false;
 		player1 = new Actor(90, new Location(1, 1), CellType.EMPTY);
 		player1.thisIsPlayerOne();
-		player1.goInvis();
+		player1.appear();
 		player2 = new Actor(0, new Location(8, 8), CellType.EMPTY);
-		player2.goInvis();
+		player2.appear();
 		bullet1 = new Bullet(player1.getDirection(), player1.getLocation());
 		bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
 		labels = new JLabel[10][10];
@@ -67,14 +67,14 @@ public class Game extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				//player1.goInvis();
-				//player2.goInvis();
+				player1.goInvis();
+				player2.goInvis();
 				draw(map.updateMap());
 			}
 
 		}
 		ActionListener listen = new InvisListener();
-		Timer timer = new Timer(2000, listen);
+		Timer timer = new Timer(3000, listen);
 		timer.start();
 	}
 	public class GameListener implements ActionListener
@@ -82,7 +82,7 @@ public class Game extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}	
 	}
 	public class BulletListener1 implements ActionListener 
@@ -113,24 +113,45 @@ public class Game extends JFrame {
 	{
 		if (bullet.canMove(map)) 
 		{
-			int r = bullet.getLocation().getRow();
-			int c = bullet.getLocation().getCol();
-			bullet.moveForward();
-			map.updateBullet(r, c, bullet.getLocation().getRow(), bullet.getLocation().getCol(), bullet);
-			System.out.println(map.getOriginalCellType(r,  c));
-			map.repair(r, c);
-			draw(map.updateMap());
+			int nextR = bullet.getLocation().getAdjacentLocation(bullet.getDirection()).getRow();
+			int nextC = bullet.getLocation().getAdjacentLocation(bullet.getDirection()).getCol();
+			if (bulletTouchingWallB(bullet, nextR, nextC)) 
+			{
+				map.updateCell(nextR, nextC, CellType.EMPTY);
+				map.updateOriginalCell(nextR, nextC, CellType.EMPTY);
+				map.repair(bullet.getLocation().getRow(), bullet.getLocation().getCol());
+				bullet.setInactive();
+				bullet.setLocation(null);
+				draw(map.updateMap());
+			} else {
+				int r = bullet.getLocation().getRow();
+				int c = bullet.getLocation().getCol();
+				bullet.moveForward();
+				map.updateBullet(r, c, bullet.getLocation().getRow(), bullet.getLocation().getCol(), bullet);
+				map.repair(r, c);
+				draw(map.updateMap());
+			}
 		} else if (bullet.getLocation() != null)
 		{
-			System.out.println("Cant move");
 			int r = bullet.getLocation().getRow();
 			int c = bullet.getLocation().getCol();
-			System.out.println(map.getOriginalCellType(r,  c));
 			map.repair(r, c);
 			bullet.setInactive();
 			bullet.setLocation(null);
 			draw(map.updateMap());
 		}
+	}
+	public boolean bulletTouchingWallB(Bullet bullet, int r, int c) 
+	{
+		if (bullet.getLocation() == null) 
+		{
+			return false;
+		}
+		if (map.getCellType(r, c) == CellType.WAll_B) 
+		{
+			return true;
+		}
+		return false;
 	}
 	public boolean bullet1TouchingPlayer2() 
 	{
@@ -174,12 +195,10 @@ public class Game extends JFrame {
 				{
 					if (player1.invis()) 
 					{
-						System.out.println("invis");
 						labels[i][j].setIcon(null);
 					} else 
 					{
 						player1I = player1.getImage();
-						System.out.println("appear");
 						labels[i][j].setIcon(player1I);
 					}
 				}
@@ -196,7 +215,6 @@ public class Game extends JFrame {
 				}
 				else if (map[i][j] == CellType.BULLET1) 
 				{
-					System.out.println("Print Bullet1");
 					labels[i][j].setIcon(bullet1I);
 				}
 				else if (map[i][j] == CellType.BULLET2) 
@@ -220,7 +238,7 @@ public class Game extends JFrame {
 				{
 					labels[i][j].setIcon(null);
 				}
-				
+
 			}
 		}
 	}
@@ -235,7 +253,6 @@ public class Game extends JFrame {
 			bullet1I = bullet.getBulletImage();
 		} else 
 		{
-			System.out.println("TEST");
 			bullet2I = bullet.getBulletImage();
 		}
 	}
@@ -253,7 +270,7 @@ public class Game extends JFrame {
 					if (!timerOnB1) 
 					{
 						ActionListener listenB = new BulletListener1();
-						Timer timerB = new Timer(1000, listenB);
+						Timer timerB = new Timer(100, listenB);
 						timerB.start();
 						timerOnB1 = true;
 					}
@@ -264,14 +281,13 @@ public class Game extends JFrame {
 			{
 				if (!bullet2.isActive()) 
 				{
-					System.out.println("in");
 					bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
 					bullet2.setActive();
 					fire(player2, bullet2);
 					if (!timerOnB2) 
 					{
 						ActionListener listenB = new BulletListener2();
-						Timer timerB = new Timer(1000, listenB);
+						Timer timerB = new Timer(100, listenB);
 						timerB.start();
 						timerOnB2 = true;
 					}
@@ -311,7 +327,6 @@ public class Game extends JFrame {
 						player1.moveForward();
 						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
 						draw(map.updateMap());
-						System.out.println("GOT HERE A");
 					}
 				}
 			} else if (event.getKeyCode() == KeyEvent.VK_S) 
@@ -381,7 +396,6 @@ public class Game extends JFrame {
 						player2.moveForward();
 						map.updatePlayer(r, c, player2.getLocation().getRow(), player2.getLocation().getCol(), player2);
 						draw(map.updateMap());
-						System.out.println("GOT HERE A");
 					}
 				}
 			} else if (event.getKeyCode() == KeyEvent.VK_DOWN) 

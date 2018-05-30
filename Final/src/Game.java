@@ -27,11 +27,19 @@ public class Game extends JFrame {
 	private ImageIcon wall;
 	private ImageIcon player1I;
 	private ImageIcon player2I;
-	boolean timerOnB;
+	private ImageIcon bush;
+	private ImageIcon wallb;
+	private ImageIcon puddle;
+	private ImageIcon splash;
+	private boolean timerOnB1;
+	private boolean timerOnB2;
+	private Display x;
 	public Game()
 	{
 		images();
-		timerOnB = false;
+		x = new Display();
+		timerOnB1 = false;
+		timerOnB2 = false;
 		player1 = new Actor(90, new Location(1, 1), CellType.EMPTY);
 		player1.thisIsPlayerOne();
 		player1.goInvis();
@@ -59,8 +67,8 @@ public class Game extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				player1.goInvis();
-				player2.goInvis();
+				//player1.goInvis();
+				//player2.goInvis();
 				draw(map.updateMap());
 			}
 
@@ -69,14 +77,36 @@ public class Game extends JFrame {
 		Timer timer = new Timer(2000, listen);
 		timer.start();
 	}
-
-	public class BulletListener implements ActionListener 
+	public class GameListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}	
+	}
+	public class BulletListener1 implements ActionListener 
 	{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			moveBullet(bullet1);
+			if (bullet1TouchingPlayer2()) 
+			{
+				x.displayOneWIN();
+			}
+		}	
+	}
+	public class BulletListener2 implements ActionListener 
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
 			moveBullet(bullet2);
+			if (bullet2TouchingPlayer1()) 
+			{
+				x.displayTwoWIN();
+			}
 		}	
 	}
 	public void moveBullet(Bullet bullet) 
@@ -87,17 +117,36 @@ public class Game extends JFrame {
 			int c = bullet.getLocation().getCol();
 			bullet.moveForward();
 			map.updateBullet(r, c, bullet.getLocation().getRow(), bullet.getLocation().getCol(), bullet);
+			System.out.println(map.getOriginalCellType(r,  c));
+			map.repair(r, c);
 			draw(map.updateMap());
 		} else if (bullet.getLocation() != null)
 		{
 			System.out.println("Cant move");
 			int r = bullet.getLocation().getRow();
 			int c = bullet.getLocation().getCol();
+			System.out.println(map.getOriginalCellType(r,  c));
 			map.repair(r, c);
 			bullet.setInactive();
 			bullet.setLocation(null);
 			draw(map.updateMap());
 		}
+	}
+	public boolean bullet1TouchingPlayer2() 
+	{
+		if (bullet1.getLocation() == null) 
+		{
+			return false;
+		}
+		return (bullet1.getLocation().equals(player2.getLocation()));
+	}
+	public boolean bullet2TouchingPlayer1() 
+	{
+		if (bullet2.getLocation() == null) 
+		{
+			return false;
+		}
+		return (bullet2.getLocation().equals(player1.getLocation()));
 	}
 	public void initialize() 
 	{
@@ -129,6 +178,7 @@ public class Game extends JFrame {
 						labels[i][j].setIcon(null);
 					} else 
 					{
+						player1I = player1.getImage();
 						System.out.println("appear");
 						labels[i][j].setIcon(player1I);
 					}
@@ -140,6 +190,7 @@ public class Game extends JFrame {
 						labels[i][j].setIcon(null);
 					} else 
 					{
+						player2I = player2.getImage();
 						labels[i][j].setIcon(player2I);
 					}
 				}
@@ -152,10 +203,24 @@ public class Game extends JFrame {
 				{
 					labels[i][j].setIcon(bullet2I);
 				}
+				else if (map[i][j] == CellType.BUSH) 
+				{
+					labels[i][j].setIcon(bush);
+				}
+				else if (map[i][j] == CellType.WAll_B) 
+				{
+					labels[i][j].setIcon(wallb);
+
+				}
+				else if (map[i][j] == CellType.PUDDLE) 
+				{
+					labels[i][j].setIcon(puddle);
+				}
 				else 
 				{
 					labels[i][j].setIcon(null);
 				}
+				
 			}
 		}
 	}
@@ -185,12 +250,12 @@ public class Game extends JFrame {
 					bullet1 = new Bullet(player1.getDirection(), player1.getLocation());
 					bullet1.setActive();
 					fire(player1, bullet1);
-					if (!timerOnB) 
+					if (!timerOnB1) 
 					{
-						ActionListener listenB = new BulletListener();
+						ActionListener listenB = new BulletListener1();
 						Timer timerB = new Timer(1000, listenB);
 						timerB.start();
-						timerOnB = true;
+						timerOnB1 = true;
 					}
 					draw(map.updateMap());
 				}
@@ -203,12 +268,12 @@ public class Game extends JFrame {
 					bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
 					bullet2.setActive();
 					fire(player2, bullet2);
-					if (!timerOnB) 
+					if (!timerOnB2) 
 					{
-						ActionListener listenB = new BulletListener();
+						ActionListener listenB = new BulletListener2();
 						Timer timerB = new Timer(1000, listenB);
 						timerB.start();
-						timerOnB = true;
+						timerOnB2 = true;
 					}
 				}
 				draw(map.updateMap());
@@ -375,13 +440,21 @@ public class Game extends JFrame {
 		Image image = wall.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wall = new ImageIcon(newimg);  // transform it back
-		player1I = new ImageIcon(cldr.getResource("player1.png"));
-		Image player1img = player1I.getImage();
-		Image newPlayer1 = player1img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-		player1I = new ImageIcon(newPlayer1);
-		player2I = new ImageIcon(cldr.getResource("player2.png"));
-		Image player2img = player2I.getImage();
-		Image newPlayer2 = player2img.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-		player2I = new ImageIcon(newPlayer2);
+		bush = new ImageIcon(cldr.getResource("grass.jpg"));
+		Image bush1 = bush.getImage(); // transform it 
+		Image newbush = bush1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		bush = new ImageIcon(newbush);  // transform it back
+		puddle = new ImageIcon(cldr.getResource("puddle.png"));
+		Image puddle1 = puddle.getImage(); // transform it 
+		Image newpuddle = puddle1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		puddle = new ImageIcon(newpuddle);  // transform it back
+		wallb = new ImageIcon(cldr.getResource("wallb.png"));
+		Image wall1 = wallb.getImage(); // transform it 
+		Image newwallb = wall1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		wallb = new ImageIcon(newwallb);  // transform it back
+		splash = new ImageIcon(cldr.getResource("splash.gif"));
+		Image splash1 = splash.getImage(); // transform it 
+		Image newsplash = splash1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		splash = new ImageIcon(newsplash);  // transform it back
 	}
 }

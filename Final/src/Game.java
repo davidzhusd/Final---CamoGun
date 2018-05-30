@@ -497,7 +497,7 @@ public class Game extends JFrame {
 	{
 		ClassLoader cldr = this.getClass().getClassLoader();
 		wall = new ImageIcon(cldr.getResource("brick-wall-pls.png"));
-		Image image = wall.getImage(); // transform it 
+		Image image = wall.getImage(); // transform it  
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wall = new ImageIcon(newimg);  // transform it back
 		bush = new ImageIcon(cldr.getResource("grass.jpg"));

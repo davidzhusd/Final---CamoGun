@@ -31,15 +31,21 @@ public class Game extends JFrame {
 	private ImageIcon wallb;
 	private ImageIcon puddle;
 	private ImageIcon splash;
-	private boolean timerOnB1;
-	private boolean timerOnB2;
 	private Display x;
+	private Timer timerB1;
+	private Timer timerB2;
+	private ImageIcon shieldI;
+	private ImageIcon revealerI;
+	private Item shield;
+	private Item revealer;
 	public Game()
 	{
+		startBtimers();
 		images();
+		shield = new Shield(null);
+		revealer = new Revealer(null);
+		
 		x = new Display();
-		timerOnB1 = false;
-		timerOnB2 = false;
 		player1 = new Actor(90, new Location(1, 1), CellType.EMPTY);
 		player1.thisIsPlayerOne();
 		player1.appear();
@@ -76,13 +82,32 @@ public class Game extends JFrame {
 		ActionListener listen = new InvisListener();
 		Timer timer = new Timer(3000, listen);
 		timer.start();
+		ActionListener listenG = new GameListener();
+		Timer timerG = new Timer(100, listenG);
+		timerG.start();
+		
+		map.updateCell(2, 2, CellType.REVEALER);
+		map.updateCell(2, 4, CellType.SHIELD);
+		map.updateOriginalCell(2, 2, CellType.REVEALER);
+		map.updateOriginalCell(2, 4, CellType.SHIELD);
+	}
+	public void startBtimers() 
+	{
+		ActionListener listenB1 = new BulletListener1();
+		timerB1 = new Timer(100, listenB1);
+		timerB1.start();
+		ActionListener listenB2 = new BulletListener2();
+		timerB2 = new Timer(100, listenB2);
+		timerB2.start();
 	}
 	public class GameListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-
+			refreshPlayer(player1);
+			refreshPlayer(player2);
+			draw(map.updateMap());
 		}	
 	}
 	public class BulletListener1 implements ActionListener 
@@ -91,6 +116,7 @@ public class Game extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			moveBullet(bullet1);
+			refreshPlayer(player1);
 			if (bullet1TouchingPlayer2()) 
 			{
 				player2.appear();
@@ -105,6 +131,7 @@ public class Game extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			moveBullet(bullet2);
+			refreshPlayer(player2);
 			if (bullet2TouchingPlayer1()) 
 			{
 				player1.appear();
@@ -145,6 +172,18 @@ public class Game extends JFrame {
 			draw(map.updateMap());
 		}
 	}
+	public void refreshPlayer(Actor player) 
+	{
+		int r = player.getLocation().getRow();
+		int c = player.getLocation().getCol();
+		if (player.amIPlayerOne()) 
+		{
+			map.updateCell(r, c, CellType.PLAYER_A);
+		} else 
+		{
+			map.updateCell(r, c, CellType.PLAYER_B);
+		}
+	}
 	public boolean bulletTouchingWallB(Bullet bullet, int r, int c) 
 	{
 		if (bullet.getLocation() == null) 
@@ -163,7 +202,13 @@ public class Game extends JFrame {
 		{
 			return false;
 		}
-		return (bullet1.getLocation().equals(player2.getLocation()));
+		if (bullet1.getLocation().equals(player2.getLocation())) 
+		{
+			timerB1.stop();
+			timerB2.stop();
+			return true;
+		}
+		return false;
 	}
 	public boolean bullet2TouchingPlayer1() 
 	{
@@ -171,7 +216,13 @@ public class Game extends JFrame {
 		{
 			return false;
 		}
-		return (bullet2.getLocation().equals(player1.getLocation()));
+		if (bullet2.getLocation().equals(player1.getLocation())) 
+		{
+			timerB1.stop();
+			timerB2.stop();
+			return true;
+		}
+		return false;
 	}
 	public void initialize() 
 	{
@@ -238,6 +289,16 @@ public class Game extends JFrame {
 				{
 					labels[i][j].setIcon(puddle);
 				}
+				else if (map[i][j] == CellType.SHIELD) 
+				{
+					shield.setLocation(new Location(i, j));
+					labels[i][j].setIcon(shieldI);
+				}
+				else if (map[i][j] == CellType.REVEALER) 
+				{
+					revealer.setLocation(new Location(i, j));
+					labels[i][j].setIcon(revealerI);
+				}
 				else 
 				{
 					labels[i][j].setIcon(null);
@@ -260,6 +321,29 @@ public class Game extends JFrame {
 			bullet2I = bullet.getBulletImage();
 		}
 	}
+	public void move(Actor player) 
+	{
+		if (player.canMove(map)) 
+		{
+			int r = player.getLocation().getRow();
+			int c = player.getLocation().getCol();
+			player.moveForward();
+			System.out.println(shield.getLocation().getRow() + " " + shield.getLocation().getCol());
+			System.out.println(player.getLocation().getRow() + " " + player.getLocation().getCol());
+			if (touchingShield(player)) 
+			{
+				map.updateCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);
+				map.updateOriginalCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);
+			}
+			else if (touchingRevealer(player)) 
+			{
+				map.updateCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);
+				map.updateOriginalCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);
+			}
+			map.updatePlayer(r, c, player.getLocation().getRow(), player.getLocation().getCol(), player);
+			draw(map.updateMap());
+		}
+	}
 	private class KeyHandler implements KeyListener {
 
 		public void keyPressed ( KeyEvent event )
@@ -271,13 +355,6 @@ public class Game extends JFrame {
 					bullet1 = new Bullet(player1.getDirection(), player1.getLocation());
 					bullet1.setActive();
 					fire(player1, bullet1);
-					if (!timerOnB1) 
-					{
-						ActionListener listenB = new BulletListener1();
-						Timer timerB = new Timer(100, listenB);
-						timerB.start();
-						timerOnB1 = true;
-					}
 					draw(map.updateMap());
 				}
 			}
@@ -288,13 +365,6 @@ public class Game extends JFrame {
 					bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
 					bullet2.setActive();
 					fire(player2, bullet2);
-					if (!timerOnB2) 
-					{
-						ActionListener listenB = new BulletListener2();
-						Timer timerB = new Timer(100, listenB);
-						timerB.start();
-						timerOnB2 = true;
-					}
 				}
 				draw(map.updateMap());
 
@@ -307,14 +377,7 @@ public class Game extends JFrame {
 				}
 				else 
 				{
-					if (player1.canMove(map)) 
-					{
-						int r = player1.getLocation().getRow();
-						int c = player1.getLocation().getCol();
-						player1.moveForward();
-						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
-						draw(map.updateMap());
-					}
+					move(player1);
 				}
 			} else if (event.getKeyCode() == KeyEvent.VK_A) 
 			{
@@ -324,14 +387,7 @@ public class Game extends JFrame {
 				}
 				else 
 				{
-					if (player1.canMove(map)) 
-					{
-						int r = player1.getLocation().getRow();
-						int c = player1.getLocation().getCol();
-						player1.moveForward();
-						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
-						draw(map.updateMap());
-					}
+					move(player1);
 				}
 			} else if (event.getKeyCode() == KeyEvent.VK_S) 
 			{
@@ -341,14 +397,7 @@ public class Game extends JFrame {
 				}
 				else 
 				{
-					if (player1.canMove(map)) 
-					{
-						int r = player1.getLocation().getRow();
-						int c = player1.getLocation().getCol();
-						player1.moveForward();
-						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
-						draw(map.updateMap());
-					}
+					move(player1);
 				}
 			} else if (event.getKeyCode() == KeyEvent.VK_W) 
 			{
@@ -358,14 +407,7 @@ public class Game extends JFrame {
 				}
 				else 
 				{
-					if (player1.canMove(map)) 
-					{
-						int r = player1.getLocation().getRow();
-						int c = player1.getLocation().getCol();
-						player1.moveForward();
-						map.updatePlayer(r, c, player1.getLocation().getRow(), player1.getLocation().getCol(), player1);
-						draw(map.updateMap());
-					}
+					move(player1);
 				}
 
 			} else if (event.getKeyCode() == KeyEvent.VK_RIGHT) 
@@ -376,14 +418,7 @@ public class Game extends JFrame {
 				}
 				else 
 				{
-					if (player2.canMove(map)) 
-					{
-						int r = player2.getLocation().getRow();
-						int c = player2.getLocation().getCol();
-						player2.moveForward();
-						map.updatePlayer(r, c, player2.getLocation().getRow(), player2.getLocation().getCol(), player2);
-						draw(map.updateMap());
-					}
+					move(player2);
 				}
 			} else if (event.getKeyCode() == KeyEvent.VK_LEFT) 
 			{
@@ -393,14 +428,7 @@ public class Game extends JFrame {
 				}
 				else 
 				{
-					if (player2.canMove(map)) 
-					{
-						int r = player2.getLocation().getRow();
-						int c = player2.getLocation().getCol();
-						player2.moveForward();
-						map.updatePlayer(r, c, player2.getLocation().getRow(), player2.getLocation().getCol(), player2);
-						draw(map.updateMap());
-					}
+					move(player2);
 				}
 			} else if (event.getKeyCode() == KeyEvent.VK_DOWN) 
 			{
@@ -410,14 +438,7 @@ public class Game extends JFrame {
 				}
 				else 
 				{
-					if (player2.canMove(map)) 
-					{
-						int r = player2.getLocation().getRow();
-						int c = player2.getLocation().getCol();
-						player2.moveForward();
-						map.updatePlayer(r, c, player2.getLocation().getRow(), player2.getLocation().getCol(), player2);
-						draw(map.updateMap());
-					}
+					move(player2);
 				}
 			} else if (event.getKeyCode() == KeyEvent.VK_UP) 
 			{
@@ -427,14 +448,7 @@ public class Game extends JFrame {
 				}
 				else 
 				{
-					if (player2.canMove(map)) 
-					{
-						int r = player2.getLocation().getRow();
-						int c = player2.getLocation().getCol();
-						player2.moveForward();
-						map.updatePlayer(r, c, player2.getLocation().getRow(), player2.getLocation().getCol(), player2);
-						draw(map.updateMap());
-					}
+					move(player2);
 				}
 			}
 		}
@@ -451,6 +465,30 @@ public class Game extends JFrame {
 			// (action keys include arrow key, Home, etc)
 		}
 	}   // end KeyHandler
+	public boolean touchingShield(Actor player) 
+	{
+		if (player.getLocation() == null) 
+		{
+			return false;
+		}
+		if (player.getLocation().equals(shield.getLocation())) 
+		{
+			return true;
+		}
+		return false;
+	}
+	public boolean touchingRevealer(Actor player) 
+	{
+		if (player.getLocation() == null) 
+		{
+			return false;
+		}
+		if (player.getLocation().equals(revealer.getLocation())) 
+		{
+			return true;
+		}
+		return false;
+	}
 	public void images() 
 	{
 		ClassLoader cldr = this.getClass().getClassLoader();
@@ -474,5 +512,13 @@ public class Game extends JFrame {
 		Image splash1 = splash.getImage(); // transform it 
 		Image newsplash = splash1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		splash = new ImageIcon(newsplash);  // transform it back
+		shieldI = new ImageIcon(cldr.getResource("fish.gif"));
+		Image shield1 = shieldI.getImage();
+		Image newshield = shield1.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+		shieldI = new ImageIcon(newshield);
+		revealerI = new ImageIcon(cldr.getResource("wallb.png"));
+		Image revealer1 = revealerI.getImage(); // transform it 
+		Image newrevealer = revealer1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		revealerI = new ImageIcon(newrevealer);  // transform it back
 	}
 }

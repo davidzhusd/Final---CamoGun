@@ -22,6 +22,9 @@ public class Bullet
 			bulletImage = new ImageIcon(cldr.getResource("BulletVertical.png"));
 			image = bulletImage.getImage();
 		}
+		Image bullet1 = bulletImage.getImage(); // transform it 
+		Image newbullet = bullet1.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		bulletImage = new ImageIcon(newbullet);
 	}
 	public boolean isActive() 
 	{
@@ -42,17 +45,6 @@ public class Bullet
 	public boolean amIBullet1() 
 	{
 		return identifier;
-	}
-	public Bullet(int direction){
-		this.direction = direction;
-		if (direction%180 == 90) {
-			bulletImage = new ImageIcon("BulletHorizontal.png");
-			image = bulletImage.getImage();
-		}
-		else {
-			bulletImage = new ImageIcon("BulletVertical.png");
-			image = bulletImage.getImage();
-		}
 	}
 	public void moveForward() 
 	{

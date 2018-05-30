@@ -47,4 +47,12 @@ public class Location {
 		}
 		return new Location(row+rowChange, col+colChange);
 	}
+	public boolean equals(Location loc) 
+	{
+		if (loc == null) 
+		{
+			return false; 	
+		}
+		return (getRow() == loc.getRow() && getCol() == loc.getCol());
+	}
 }

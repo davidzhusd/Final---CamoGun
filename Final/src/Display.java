@@ -9,8 +9,21 @@ public class Display {
 	{
 		Game game = new Game();
 	}
+	public void displayOneWIN() 
+	{
+		WinOne one = new WinOne();
+	}
+	public void displayTwoWIN() 
+	{
+		WinTwo two = new WinTwo();
+	}
 	public void displayGameAlternate()
 	{
 		GameAlternate game = new GameAlternate(0,0);
 	}
+	public void displayInstructions() 
+	{
+		Instructions ins= new Instructions();
+	}
+	
 }

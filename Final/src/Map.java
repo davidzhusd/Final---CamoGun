@@ -63,7 +63,7 @@ public class Map {
 			map[2][3]=CellType.PUDDLE;
 			map[5][3]=CellType.WALL;
 			map[7][3]=CellType.WALL;
-			map[1][4]=CellType.WALL;
+		//	map[1][4]=CellType.WALL;
 			map[2][4]=CellType.EMPTY;
 			map[3][4]=CellType.WALL;
 			map[4][4]=CellType.BUSH;
@@ -91,6 +91,16 @@ public class Map {
 			map[5][8]=CellType.BUSH;
 			map[6][8]=CellType.WALL;
 			map[7][8]=CellType.WAll_B;
+			for (int i = 0; i < 10; i++) 
+			{
+				for (int j = 0; j < 10; j++) 
+				{
+					if (map[i][j] == null) 
+					{
+						map[i][j] = CellType.EMPTY;
+					}
+				}
+			}
 		}
 		if (alternate == 2)
 		{
@@ -107,29 +117,38 @@ public class Map {
 			map[5][8] = CellType.BUSH;
 			map[7][5] = CellType.BUSH;
 			map[8][5] = CellType.BUSH;
-			map[2][5]=CellType.WAll_B;
-			map[2][6]=CellType.WAll_B;
-			map[2][7]=CellType.WAll_B;
-			map[2][8]=CellType.WAll_B;
-			map[5][4]=CellType.WAll_B;
-			map[5][5]=CellType.WAll_B;
-			map[7][1]=CellType.WAll_B;
-			map[7][2]=CellType.WAll_B;
-			map[7][3]=CellType.WAll_B;
-			map[7][4]=CellType.WAll_B;
-			map[4][4]=CellType.WALL;
-			map[4][5]=CellType.WALL;
-			map[6][4]=CellType.WALL;
-			map[6][5]=CellType.WALL;
-			map[3][5]=CellType.PUDDLE;
-			map[3][6]=CellType.PUDDLE;
-			map[3][7]=CellType.PUDDLE;
-			map[4][6]=CellType.PUDDLE;
-			map[4][7]=CellType.PUDDLE;
-			map[5][2]=CellType.PUDDLE;
-			map[5][3]=CellType.PUDDLE;
-			map[6][2]=CellType.PUDDLE;
-			map[6][3]=CellType.PUDDLE;
+			map[2][5] = CellType.WAll_B;
+			map[2][6] = CellType.WAll_B;
+			map[2][7] = CellType.WAll_B;
+			map[5][4] = CellType.WAll_B;
+			map[5][5] = CellType.WAll_B;
+			map[7][1] = CellType.WAll_B;
+			map[7][2] = CellType.WAll_B;
+			map[7][3] = CellType.WAll_B;
+			map[7][4] = CellType.WAll_B;
+			map[4][4] = CellType.WALL;
+			map[4][5] = CellType.WALL;
+			map[6][4] = CellType.WALL;
+			map[6][5] = CellType.WALL;
+			map[3][5] = CellType.PUDDLE;
+			map[3][6] = CellType.PUDDLE;
+			map[3][7] = CellType.PUDDLE;
+			map[4][6] = CellType.PUDDLE;
+			map[4][7] = CellType.PUDDLE;
+			map[5][2] = CellType.PUDDLE;
+			map[5][3] = CellType.PUDDLE;
+			map[6][2] = CellType.PUDDLE;
+			map[6][3] = CellType.PUDDLE;
+			for (int i = 0; i < 10; i++) 
+			{
+				for (int j = 0; j < 10; j++) 
+				{
+					if (map[i][j] == null) 
+					{
+						map[i][j] = CellType.EMPTY;
+					}
+				}
+			}
 		}
 
 		//

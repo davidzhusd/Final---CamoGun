@@ -1,4 +1,3 @@
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -40,8 +39,12 @@ public class Game extends JFrame {
 	private Revealer revealer;
 	private Timer timerR1;
 	private Timer timerR2;
+	private boolean shieldActive;
+	private boolean revealerActive;
+	private Timer timerI;
 	public Game()
 	{
+		startItemTimers();
 		startBtimers();
 		startRevealTimers();
 		images();
@@ -57,7 +60,8 @@ public class Game extends JFrame {
 		bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
 		labels = new JLabel[10][10];
 		getContentPane().setLayout(new GridLayout(10, 10));
-		int random=(int)Math.random()*2;
+		int random=(int)((Math.random())*2 + 1);
+		System.out.println(random);
 		map = new Map(random);
 		initialize();
 		draw(map.updateMap());
@@ -88,11 +92,12 @@ public class Game extends JFrame {
 		ActionListener listenG = new GameListener();
 		Timer timerG = new Timer(100, listenG);
 		timerG.start();
-		
-		map.updateCell(2, 2, CellType.REVEALER);
-		map.updateCell(2, 4, CellType.SHIELD);
-		map.updateOriginalCell(2, 2, CellType.REVEALER);
-		map.updateOriginalCell(2, 4, CellType.SHIELD);
+	}
+	public void startItemTimers() 
+	{
+		ActionListener item = new ItemListener();
+		timerI = new Timer(15000, item);
+		timerI.start();
 	}
 	public void startRevealTimers() 
 	{
@@ -111,6 +116,46 @@ public class Game extends JFrame {
 		ActionListener listenB2 = new BulletListener2();
 		timerB2 = new Timer(100, listenB2);
 		timerB2.start();
+	}
+	public Location randomEmptyLoc() 
+	{
+		do 
+		{
+			int r = (int)(Math.random()*9 + 1);
+			int c = (int)(Math.random()*9 + 1);
+			Location loc = new Location(r, c);
+			if (map.getCellType(r, c) == CellType.EMPTY) 
+			{
+				return loc;
+			}
+		} while (true);
+	}
+	public class ItemListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if (!shieldActive) 
+			{
+				shieldActive = true;
+				Location loc = randomEmptyLoc();
+				shield.setLocation(loc);
+				int r = loc.getRow();
+				int c = loc.getCol();
+				map.updateCell(r, c, CellType.SHIELD);
+				map.updateOriginalCell(r, c, CellType.SHIELD);
+			}
+			if (!revealerActive) 
+			{
+				revealerActive = true;
+				Location loc = randomEmptyLoc();
+				shield.setLocation(loc);
+				int r = loc.getRow();
+				int c = loc.getCol();
+				map.updateCell(r, c, CellType.REVEALER);
+				map.updateOriginalCell(r, c, CellType.REVEALER);
+			}
+		}
 	}
 	public class GameListener implements ActionListener
 	{
@@ -516,20 +561,22 @@ public class Game extends JFrame {
 	}   // end KeyHandler
 	public boolean touchingShield(Actor player) 
 	{
-		if (player.getLocation() == null) 
+		if (player.getLocation() == null || shield.getLocation() == null) 
 		{
 			return false;
 		}
 		if (player.getLocation().equals(shield.getLocation())) 
 		{
+			shieldActive = false;
 			shield.activate(player);
+			shield.setLocation(null);
 			return true;
 		}
 		return false;
 	}
 	public boolean touchingRevealer(Actor player) 
 	{
-		if (player.getLocation() == null) 
+		if (player.getLocation() == null || revealer.getLocation() == null) 
 		{
 			return false;
 		}
@@ -537,11 +584,13 @@ public class Game extends JFrame {
 		{
 			if (player.amIPlayerOne()) 
 			{
-				System.out.println("player2");
+				revealerActive = false;
+				revealer.setLocation(null);
 				revealer.activate(player2);
 			} else 
 			{
-				System.out.println("player1");
+				revealerActive = false;
+				revealer.setLocation(null);
 				revealer.activate(player1);
 			}
 			return true;

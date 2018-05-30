@@ -21,4 +21,9 @@ public class Display {
 	{
 		GameAlternate game = new GameAlternate(0,0);
 	}
+	public void displayInstructions() 
+	{
+		Instructions ins= new Instructions();
+	}
+	
 }

@@ -6,25 +6,79 @@ public class Bullet
 	private int direction;
 	private ImageIcon bulletImage;
 	private Image image;
-	public Bullet(int direction){
+	private Location myLocation;
+	private boolean identifier;
+	private boolean active;
+	public Bullet(int direction, Location location){
+		active = false;
+		myLocation = location;
 		this.direction = direction;
+		ClassLoader cldr = this.getClass().getClassLoader();
 		if (direction%180 == 90) {
-			bulletImage = new ImageIcon("BulletHorizontal.png");
+			bulletImage = new ImageIcon(cldr.getResource("BulletHorizontal.png"));
 			image = bulletImage.getImage();
 		}
 		else {
-			bulletImage = new ImageIcon("BulletVertical.png");
+			bulletImage = new ImageIcon(cldr.getResource("BulletVertical.png"));
 			image = bulletImage.getImage();
 		}
+		Image bullet1 = bulletImage.getImage(); // transform it 
+		Image newbullet = bullet1.getScaledInstance(20, 20,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		bulletImage = new ImageIcon(newbullet);
+	}
+	public boolean isActive() 
+	{
+		return active;
+	}
+	public void setActive() 
+	{
+		active = true;
+	}
+	public void setInactive() 
+	{
+		active = false;
+	}
+	public void thisIsBullet1() 
+	{
+		identifier = true;
+	}
+	public boolean amIBullet1() 
+	{
+		return identifier;
+	}
+	public void moveForward() 
+	{
+		myLocation = myLocation.getAdjacentLocation(this.direction);
 	}
 	public Image getImage(){
 		return image;
 	}
-
+	public Location getLocation() 
+	{
+		return myLocation;
+	}
+	public void setLocation(Location location) 
+	{
+		myLocation = location;
+	}
 	public ImageIcon getBulletImage() {
 		return bulletImage;
 	}
-
+	public boolean canMove(Map map) 
+	{
+		if (myLocation == null) 
+		{
+			return false;
+		}
+		Location newLoc = myLocation.getAdjacentLocation(this.direction);
+		int r = newLoc.getRow();
+		int c = newLoc.getCol();
+		if (map.getCellType(r, c) != CellType.WALL) 
+		{
+			return true;
+		}
+		return false;
+	}
 	public int getDirection(){
 		return direction;
 	}

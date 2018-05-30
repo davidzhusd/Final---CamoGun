@@ -37,9 +37,14 @@ public class TitleScreen extends JFrame implements ActionListener{
 	{
 		if (event.getSource() == Play)
 		{
-			//x.displayGame();
-			x.displayGameAlternate();
-
+			x.displayGame();
+			//x.displayGameAlternate();
+		} else if (event.getSource() == Instructions) 
+		{
+			x.displayInstructions();
+		} else if (event.getSource() == Credits) 
+		{
+			
 		}
 	}
 }

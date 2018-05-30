@@ -20,10 +20,10 @@ public class Actor {
 	private ImageIcon actorImage2R;
 	private boolean playerIdentifier;
 	private boolean playerInvis;
+	private boolean extraLife;
 	public Actor() {}
 	public Actor(int dir) 
 	{
-		
 		myDirection = dir;
 	}
 	public void thisIsPlayerOne() 
@@ -45,6 +45,14 @@ public class Actor {
 	public boolean amIPlayerOne() 
 	{
 		return playerIdentifier;
+	}
+	public void addRevealer() 
+	{
+		
+	}
+	public void addShield() 
+	{
+		extraLife = true;
 	}
 	public Actor(int direction, Location location, CellType back)
 	{

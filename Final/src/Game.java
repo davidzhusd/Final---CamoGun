@@ -36,8 +36,8 @@ public class Game extends JFrame {
 	private Timer timerB2;
 	private ImageIcon shieldI;
 	private ImageIcon revealerI;
-	private Item shield;
-	private Item revealer;
+	private Shield shield;
+	private Revealer revealer;
 	public Game()
 	{
 		startBtimers();
@@ -473,6 +473,7 @@ public class Game extends JFrame {
 		}
 		if (player.getLocation().equals(shield.getLocation())) 
 		{
+			shield.activate();
 			return true;
 		}
 		return false;
@@ -481,10 +482,13 @@ public class Game extends JFrame {
 	{
 		if (player.getLocation() == null) 
 		{
+			System.out.println("SHIELD ACTIVATED");
 			return false;
 		}
 		if (player.getLocation().equals(revealer.getLocation())) 
 		{
+			revealer.activate();
+			System.out.println("REVEALER ACTIVATED");
 			return true;
 		}
 		return false;
@@ -493,7 +497,7 @@ public class Game extends JFrame {
 	{
 		ClassLoader cldr = this.getClass().getClassLoader();
 		wall = new ImageIcon(cldr.getResource("brick-wall-pls.png"));
-		Image image = wall.getImage(); // transform it 
+		Image image = wall.getImage(); // transform it  
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wall = new ImageIcon(newimg);  // transform it back
 		bush = new ImageIcon(cldr.getResource("grass.jpg"));

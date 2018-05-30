@@ -4,14 +4,18 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
 
 
 public class Test extends JFrame implements ActionListener {
 	JButton Play;
 	JButton Instructions;
 	JButton Credits;
+
+	
 	public Test() {
 
 		Play = new JButton("Play");

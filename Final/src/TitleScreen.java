@@ -56,7 +56,7 @@ public class TitleScreen extends JFrame implements ActionListener{
                 	{
                 		setMap(2);
                 	}
-                	else if (event.getItem().equals("Random")) 
+                	else
                 	{
                 		setMap(0);
                 	}
@@ -76,7 +76,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 			x.displayInstructions();
 		} else if (event.getSource() == Credits) 
 		{
-			
+			x.displayCredits();
 		}
 	}
 }

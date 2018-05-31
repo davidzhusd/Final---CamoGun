@@ -25,5 +25,8 @@ public class Display {
 	{
 		Instructions ins= new Instructions();
 	}
-	
+	public void displayCredits() 
+	{
+		Credits cre = new Credits();
+	}
 }

@@ -102,15 +102,20 @@ public class Map {
 			map[4][1] = CellType.BUSH;
 			map[4][2] = CellType.BUSH;
 			map[4][3] = CellType.BUSH;
-			map[5][6] = CellType.BUSH;
+			
 			map[5][7] = CellType.BUSH;
 			map[5][8] = CellType.BUSH;
 			map[7][5] = CellType.BUSH;
-			map[8][5] = CellType.BUSH;
-			map[2][5]=CellType.WAll_B;
-			map[2][6]=CellType.WAll_B;
-			map[2][7]=CellType.WAll_B;
-			map[2][8]=CellType.WAll_B;
+			map[1][4] = CellType.BUSH;
+			map[1][5] = CellType.BUSH;
+			map[1][6] = CellType.BUSH;
+			map[1][7] = CellType.BUSH;
+			map[8][1] = CellType.BUSH;
+			map[8][2] = CellType.BUSH;
+			map[3][5]=CellType.WAll_B;
+			map[3][6]=CellType.WAll_B;
+			map[3][7]=CellType.WAll_B;
+			map[3][8]=CellType.WAll_B;
 			map[5][4]=CellType.WAll_B;
 			map[5][5]=CellType.WAll_B;
 			map[7][1]=CellType.WAll_B;
@@ -121,13 +126,15 @@ public class Map {
 			map[4][5]=CellType.WALL;
 			map[6][4]=CellType.WALL;
 			map[6][5]=CellType.WALL;
-			map[3][5]=CellType.PUDDLE;
-			map[3][6]=CellType.PUDDLE;
-			map[3][7]=CellType.PUDDLE;
+			map[7][7]=CellType.WALL;
+			map[2][2]=CellType.WALL;
+			map[2][7]=CellType.PUDDLE;
+			map[2][8]=CellType.PUDDLE;
+			map[4][8]=CellType.PUDDLE;
 			map[4][6]=CellType.PUDDLE;
 			map[4][7]=CellType.PUDDLE;
 			map[5][2]=CellType.PUDDLE;
-			map[5][3]=CellType.PUDDLE;
+		
 			map[6][2]=CellType.PUDDLE;
 			map[6][3]=CellType.PUDDLE;
 		}

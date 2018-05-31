@@ -56,7 +56,7 @@ public class Game extends JFrame {
 		labels = new JLabel[10][10];
 		getContentPane().setLayout(new GridLayout(10, 10));
 		int random=(int)Math.random()*2;
-		map = new Map(random);
+		map = new Map(1);
 		initialize();
 		draw(map.updateMap());
 		addWindowListener(new java.awt.event.WindowAdapter() {

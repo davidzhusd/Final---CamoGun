@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 
 public class Bullet
 {
-	private int direction;
+	private int direction; 
 	private ImageIcon bulletImage;
 	private Image image;
 	private Location myLocation;

@@ -17,7 +17,7 @@ public class WinOne extends JFrame{
 		setVisible(true);
 		JTextArea label = new JTextArea(20, 20);
 		label.setEditable(false);
-		label.setFont(new Font("Arial Black", Font.BOLD, 40));
+		label.setFont(new Font("Arial Black", Font.BOLD, 100));
 		label.setText("Player One Wins");
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();

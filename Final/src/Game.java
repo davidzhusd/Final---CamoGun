@@ -38,7 +38,23 @@ public class Game extends JFrame {
 	private ImageIcon revealerI;
 	private Shield shield;
 	private Revealer revealer;
+<<<<<<< HEAD
 	public Game()
+=======
+	private Timer timerB1;
+	private Timer timerB2;
+	private Timer timerR1;
+	private Timer timerR2;
+	private Timer timerI;
+	private Timer timerG;
+	private Timer killTimer;
+	private Timer killTimer1;
+	private boolean shieldActive;
+	private boolean revealerActive;
+	private int useMapNum;
+	//constructor
+	public Game(int num)
+>>>>>>> branch 'master' of https://github.com/chenner45/Final
 	{
 		startBtimers();
 		images();
@@ -110,6 +126,82 @@ public class Game extends JFrame {
 			refreshPlayer(player2);
 			draw(map.updateMap());
 		}	
+<<<<<<< HEAD
+=======
+	}
+	public class KillListener1 implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			oneWin();
+			killTimer.stop();
+		}
+	}
+	public void twoWin() 
+	{
+		x.displayTwoWIN();
+		setVisible(false);
+		dispose();
+	}
+	public void oneWin() 
+	{
+		x.displayOneWIN();
+		setVisible(false);
+		dispose();
+	}
+	public class KillListener2 implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			twoWin();
+			killTimer1.stop();
+		}
+	}
+	public class RevealListener1 implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			player1.updateInactivity();
+			if (player1.getInactivity()) 
+			{
+				player1.setInvis(true);
+				player1.appear();
+				draw(map.updateMap());
+			}
+			if (player1.revealed()) 
+			{
+				player1.setInvis(true);
+				player1.updateReveal();
+				player1.appear();
+				draw(map.updateMap());
+			}
+		}
+	}
+	public class RevealListener2 implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			player2.updateInactivity();
+			if (player2.getInactivity()) 
+			{
+				player2.setInvis(true);
+				player2.appear();
+				draw(map.updateMap());
+			}
+			if (player2.revealed()) 
+			{
+				player2.setInvis(true);
+				player2.updateReveal();
+				player2.appear();
+				draw(map.updateMap());
+			}
+		}
+>>>>>>> branch 'master' of https://github.com/chenner45/Final
 	}
 	public class BulletListener1 implements ActionListener 
 	{
@@ -120,9 +212,16 @@ public class Game extends JFrame {
 			refreshPlayer(player1);
 			if (bullet1TouchingPlayer2()) 
 			{
+				player2.setInvis(true);
 				player2.appear();
 				draw(map.updateMap());
+<<<<<<< HEAD
 				x.displayOneWIN();
+=======
+				ActionListener killlistener = new KillListener1();
+				killTimer = new Timer(500, killlistener);
+				killTimer.start();
+>>>>>>> branch 'master' of https://github.com/chenner45/Final
 			}
 		}	
 	}
@@ -135,9 +234,16 @@ public class Game extends JFrame {
 			refreshPlayer(player2);
 			if (bullet2TouchingPlayer1()) 
 			{
+				player1.setInvis(true);
 				player1.appear();
 				draw(map.updateMap());
+<<<<<<< HEAD
 				x.displayTwoWIN();
+=======
+				ActionListener killlistener = new KillListener2();
+				killTimer1 = new Timer(500, killlistener);
+				killTimer1.start();
+>>>>>>> branch 'master' of https://github.com/chenner45/Final
 			}
 		}	
 	}

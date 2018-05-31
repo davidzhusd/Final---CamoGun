@@ -7,7 +7,7 @@ public class Display {
 	}
 	public void displayGame(int num)
 	{
-		Game game = new Game(num);
+		Game game = new Game();
 	}
 	public void displayOneWIN() 
 	{

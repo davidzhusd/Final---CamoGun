@@ -5,9 +5,9 @@ public class Display {
 	{
 		TitleScreen title = new TitleScreen();
 	}
-	public void displayGame()
+	public void displayGame(int num)
 	{
-		Game game = new Game();
+		Game game = new Game(num);
 	}
 	public void displayOneWIN() 
 	{
@@ -25,5 +25,8 @@ public class Display {
 	{
 		Instructions ins= new Instructions();
 	}
-	
+	public void displayCredits() 
+	{
+		Credits cre = new Credits();
+	}
 }

@@ -17,7 +17,7 @@ public class Instructions extends JFrame{
 				+ "When a player moves through bushes and puddles, the bushes will rustle and the puddles will splash.\n"
 				+ "Brick walls are unbreakable, but wooden ones can be broken by bullets.\n"
 				+ "A player will be revealed if they do not do anything for 5 seconds.\n There are items, a shield that "
-				+ "blocks one bullet, \nand also another item that reveals the other player for 5 seconds.\n"
+				+ "blocks one bullet, \nand also another item that reveals the other player for 7 seconds.\n"
 				+ "The goal is to deduce where the other player is and eliminate them stealthily.");
 		add(text);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

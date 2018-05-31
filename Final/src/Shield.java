@@ -4,8 +4,8 @@ public class Shield extends Item{
 	{
 		super(loc);
 	}
-	public void activate() 
+	public void activate(Actor player) 
 	{
-		super.player.addShield();
+		player.addShield();
 	}
 }

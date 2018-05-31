@@ -42,12 +42,14 @@ public class Game extends JFrame {
 	private boolean shieldActive;
 	private boolean revealerActive;
 	private Timer timerI;
-	public Game()
+	private int useMapNum;
+	public Game(int num)
 	{
 		startItemTimers();
 		startBtimers();
 		startRevealTimers();
 		images();
+		useMapNum = num;
 		shield = new Shield(null);
 		revealer = new Revealer(null);
 		x = new Display();
@@ -60,9 +62,14 @@ public class Game extends JFrame {
 		bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
 		labels = new JLabel[10][10];
 		getContentPane().setLayout(new GridLayout(10, 10));
-		int random=(int)((Math.random())*2 + 1);
-		System.out.println(random);
-		map = new Map(random);
+		if (useMapNum != 0) 
+		{
+			map = new Map(useMapNum);
+		} else 
+		{
+			int random=(int)((Math.random())*2 + 1);
+			map = new Map(random);
+		}
 		initialize();
 		draw(map.updateMap());
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -171,6 +178,13 @@ public class Game extends JFrame {
 	{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			player1.updateInactivity();
+			if (player1.getInactivity()) 
+			{
+				player1.setInvis(true);
+				player1.appear();
+				draw(map.updateMap());
+			}
 			if (player1.revealed()) 
 			{
 				player1.setInvis(true);
@@ -421,6 +435,8 @@ public class Game extends JFrame {
 	{
 		if (player.canMove(map)) 
 		{
+			player.resetInactivity();
+			player.setInvis(false);
 			int r = player.getLocation().getRow();
 			int c = player.getLocation().getCol();
 			player.moveForward();

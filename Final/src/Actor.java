@@ -24,11 +24,39 @@ public class Actor {
 	private int reveal;
 	private boolean hasReveal;
 	private boolean cantgoinvis;
+	private boolean inActive;
+	public int count;
 	public Actor() {}
 	public Actor(int dir) 
 	{
 		myDirection = dir;
 		cantgoinvis = false;
+	}
+	public void updateInactivity() 
+	{
+		if (inActive == false) {
+			count++;
+			if (count == 5) 
+			{
+				inActive = true;
+			}
+		} else if (inActive == true) 
+		{
+			count--;
+			if (count == 0) 
+			{
+				inActive = false;
+			}
+		}
+	}
+	public void resetInactivity() 
+	{
+		count = 0;
+		inActive = false;
+	}
+	public boolean getInactivity() 
+	{
+		return inActive;
 	}
 	public void setInvis(boolean value) 
 	{
@@ -42,12 +70,10 @@ public class Actor {
 	{
 		if (cantgoinvis) 
 		{
-			System.out.println("Cant");
 			playerInvis = false;
 		}
 		else 
 		{
-			System.out.println("can");
 			playerInvis = true;
 		}
 	}
@@ -101,6 +127,8 @@ public class Actor {
 	}
 	public Actor(int direction, Location location, CellType back)
 	{
+		inActive = false;
+		count = 0;
 		ClassLoader cldr = this.getClass().getClassLoader();
 		myBack = back;
 		myDirection = direction;
@@ -205,7 +233,7 @@ public class Actor {
 	{
 		myLocation = loc;
 	}
-	
+
 	public void moveForward()
 	{
 		myLocation = myLocation.getAdjacentLocation(myDirection);
@@ -241,14 +269,9 @@ public class Actor {
 		}
 		return false;
 	}
-	
+
 	public void removeSelffromGrid()
 	{
 		//to be implemented
-	}
-	
+	}	
 }
-
-
-
-

@@ -110,7 +110,7 @@ public class Game extends JFrame {
 	public void startItemTimers() 
 	{
 		ActionListener item = new ItemListener();
-		timerI = new Timer(15000, item);
+		timerI = new Timer(7000, item);
 		timerI.start();
 	}
 	public void startRevealTimers() 
@@ -235,6 +235,8 @@ public class Game extends JFrame {
 				player2.appear();
 				draw(map.updateMap());
 				x.displayOneWIN();
+				setVisible(false);
+				dispose();
 			}
 		}	
 	}
@@ -250,6 +252,8 @@ public class Game extends JFrame {
 				player1.appear();
 				draw(map.updateMap());
 				x.displayTwoWIN();
+				setVisible(false);
+				dispose();
 			}
 		}	
 	}
@@ -286,6 +290,14 @@ public class Game extends JFrame {
 			bullet.setInactive();
 			bullet.setLocation(null);
 			draw(map.updateMap());
+		}
+	}
+	public void sleep(long i) {
+		try {
+			Thread.sleep(i);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			System.out.println("TEST");
 		}
 	}
 	//refreshes the display

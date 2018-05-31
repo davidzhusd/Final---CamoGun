@@ -40,6 +40,8 @@ public class Game extends JFrame {
 	private Timer timerR2;
 	private Timer timerI;
 	private Timer timerG;
+	private Timer killTimer;
+	private Timer killTimer1;
 	private boolean shieldActive;
 	private boolean revealerActive;
 	private int useMapNum;
@@ -182,6 +184,38 @@ public class Game extends JFrame {
 			draw(map.updateMap());
 		}	
 	}
+	public class KillListener1 implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			oneWin();
+			killTimer.stop();
+		}
+	}
+	public void twoWin() 
+	{
+		x.displayTwoWIN();
+		setVisible(false);
+		dispose();
+	}
+	public void oneWin() 
+	{
+		x.displayOneWIN();
+		setVisible(false);
+		dispose();
+	}
+	public class KillListener2 implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			twoWin();
+			killTimer1.stop();
+		}
+	}
 	public class RevealListener1 implements ActionListener
 	{
 		@Override
@@ -232,11 +266,12 @@ public class Game extends JFrame {
 			refreshPlayer(player1);
 			if (bullet1TouchingPlayer2()) 
 			{
+				player2.setInvis(true);
 				player2.appear();
 				draw(map.updateMap());
-				x.displayOneWIN();
-				setVisible(false);
-				dispose();
+				ActionListener killlistener = new KillListener1();
+				killTimer = new Timer(500, killlistener);
+				killTimer.start();
 			}
 		}	
 	}
@@ -249,11 +284,12 @@ public class Game extends JFrame {
 			refreshPlayer(player2);
 			if (bullet2TouchingPlayer1()) 
 			{
+				player1.setInvis(true);
 				player1.appear();
 				draw(map.updateMap());
-				x.displayTwoWIN();
-				setVisible(false);
-				dispose();
+				ActionListener killlistener = new KillListener2();
+				killTimer1 = new Timer(500, killlistener);
+				killTimer1.start();
 			}
 		}	
 	}

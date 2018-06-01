@@ -36,20 +36,16 @@ public class Game extends JFrame {
 	private ImageIcon puddlePlayer;
 	private Shield shield;
 	private Revealer revealer;
-	private Timer timerB1;
-	private Timer timerB2;
-	private Timer timerR1;
-	private Timer timerR2;
-	private Timer timerI;
+	private Timer timerB;
+	private Timer timerR;
 	private Timer killTimer;
-	private Timer killTimer1;
 	private boolean shieldActive;
 	private boolean revealerActive;
 	private int useMapNum;
 	//constructor
 	public Game(int num)
 	{
-		startItemTimers();
+		startMainTimer();
 		startBtimers();
 		startRevealTimers();
 		images();
@@ -87,45 +83,25 @@ public class Game extends JFrame {
 		setVisible(true);
 		requestFocusInWindow();
 		addKeyListener(new KeyHandler());
-		class InvisListener implements ActionListener
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				player1.goInvis();
-				player2.goInvis();
-				draw(map.updateMap());
-			}
-
-		}
-		ActionListener listen = new InvisListener();
-		Timer timer = new Timer(3000, listen);
+	}
+	public void startMainTimer() 
+	{
+		ActionListener listen = new Listener();
+		Timer timer = new Timer(1000, listen);
 		timer.start();
 	}
 	//start all necessary timers
-	public void startItemTimers() 
-	{
-		ActionListener item = new ItemListener();
-		timerI = new Timer(7000, item);
-		timerI.start();
-	}
 	public void startRevealTimers() 
 	{
-		ActionListener listenR1 = new RevealListener1();
-		timerR1 = new Timer(1000, listenR1);
-		timerR1.start();
-		ActionListener listenR2 = new RevealListener2();
-		timerR2 = new Timer(1000, listenR2);
-		timerR2.start();
+		ActionListener listenR1 = new RevealListener();
+		timerR = new Timer(1000, listenR1);
+		timerR.start();
 	}
 	public void startBtimers() 
 	{
 		ActionListener listenB1 = new BulletListener1();
-		timerB1 = new Timer(50, listenB1);
-		timerB1.start();
-		ActionListener listenB2 = new BulletListener2();
-		timerB2 = new Timer(50, listenB2);
-		timerB2.start();
+		timerB = new Timer(50, listenB1);
+		timerB.start();
 	}
 	//creates random location for item spawning
 	public Location randomEmptyLoc() 
@@ -141,105 +117,101 @@ public class Game extends JFrame {
 			}
 		} while (true);
 	}
-	public class ItemListener implements ActionListener
+	public class Listener implements ActionListener
 	{
+		int count = 0;
+		int count2 = 0;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if (!shieldActive) 
+			count++;
+			count2++;
+			if (count == 3) 
 			{
-				shieldActive = true;
-				Location loc = randomEmptyLoc();
-				shield.setLocation(loc);
-				int r = loc.getRow();
-				int c = loc.getCol();
-				map.updateCell(r, c, CellType.SHIELD);
-				map.updateOriginalCell(r, c, CellType.SHIELD);
+				player1.goInvis();
+				player2.goInvis();
+				draw(map.updateMap());
+				count = 0;
 			}
-			if (!revealerActive) 
+			if (count2 == 7) 
 			{
-				revealerActive = true;
-				Location loc = randomEmptyLoc();
-				shield.setLocation(loc);
-				int r = loc.getRow();
-				int c = loc.getCol();
-				map.updateCell(r, c, CellType.REVEALER);
-				map.updateOriginalCell(r, c, CellType.REVEALER);
+				if (!shieldActive) 
+				{
+					shieldActive = true;
+					Location loc = randomEmptyLoc();
+					shield.setLocation(loc);
+					int r = loc.getRow();
+					int c = loc.getCol();
+					map.updateCell(r, c, CellType.SHIELD);
+					map.updateOriginalCell(r, c, CellType.SHIELD);
+				}
+				if (!revealerActive) 
+				{
+					revealerActive = true;
+					Location loc = randomEmptyLoc();
+					shield.setLocation(loc);
+					int r = loc.getRow();
+					int c = loc.getCol();
+					map.updateCell(r, c, CellType.REVEALER);
+					map.updateOriginalCell(r, c, CellType.REVEALER);
+				}
+				count2 = 0;
 			}
 		}
-	}
-	//constantly refreshes players
-	public class KillListener1 implements ActionListener
-	{
 
+	}
+	public class KillListener implements ActionListener
+	{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
-			oneWin();
+			if (player1.IWon()) 
+			{
+				Win(player1);
+			}
+			else 
+			{
+				Win(player2);
+			}
 			killTimer.stop();
 		}
 	}
-	public void twoWin() 
+	public void Win(Actor player) 
 	{
-		x.displayTwoWIN();
-		setVisible(false);
-		dispose();
-	}
-	public void oneWin() 
-	{
-		x.displayOneWIN();
-		setVisible(false);
-		dispose();
-	}
-	public class KillListener2 implements ActionListener
-	{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			twoWin();
-			killTimer1.stop();
+		if (player.amIPlayerOne()) 
+		{
+			x.displayOneWIN();
 		}
+		else 
+		{
+			x.displayTwoWIN();
+		}
+		setVisible(false);
+		dispose();
 	}
-	public class RevealListener1 implements ActionListener
+	public class RevealListener implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			player1.updateInactivity();
-			if (player1.getInactivity()) 
-			{
-				player1.setInvis(true);
-				player1.appear();
-				draw(map.updateMap());
-			}
-			if (player1.revealed()) 
-			{
-				player1.setInvis(true);
-				player1.updateReveal();
-				player1.appear();
-				draw(map.updateMap());
-			}
+			revealWork(player1);
+			revealWork(player2);
 		}
 	}
-	public class RevealListener2 implements ActionListener
+	public void revealWork(Actor player) 
 	{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			player2.updateInactivity();
-			if (player2.getInactivity()) 
-			{
-				player2.setInvis(true);
-				player2.appear();
-				draw(map.updateMap());
-			}
-			if (player2.revealed()) 
-			{
-				player2.setInvis(true);
-				player2.updateReveal();
-				player2.appear();
-				draw(map.updateMap());
-			}
+		player.updateInactivity();
+		if (player.getInactivity()) 
+		{
+			player.setInvis(true);
+			player.appear();
+			draw(map.updateMap());
+		}
+		if (player.revealed()) 
+		{
+			player.setInvis(true);
+			player.updateReveal();
+			player.appear();
+			draw(map.updateMap());
 		}
 	}
 	public class BulletListener1 implements ActionListener 
@@ -247,40 +219,34 @@ public class Game extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			moveBullet(bullet1);
-			refreshPlayer(player1);
-			if (bullet1TouchingPlayer2()) 
-			{
-				player2.setInvis(true);
-				player2.setGameEnd();
-				player1.setGameEnd();
-				player2.appear();
-				draw(map.updateMap());
-				ActionListener killlistener = new KillListener1();
-				killTimer = new Timer(500, killlistener);
-				killTimer.start();
-			}
+			bulletWork(player2, bullet1);
+			bulletWork(player1, bullet2);
 		}	
 	}
-	public class BulletListener2 implements ActionListener 
+	public void bulletWork(Actor player, Bullet bullet) 
 	{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			moveBullet(bullet2);
-			refreshPlayer(player2);
-			if (bullet2TouchingPlayer1()) 
+		moveBullet(bullet);
+		refreshPlayer(player1);
+		refreshPlayer(player2);
+		if (bulletTouchingPlayer(bullet, player)) 
+		{
+			player.setInvis(true);
+			player2.setGameEnd();
+			player1.setGameEnd();
+			player.appear();
+			draw(map.updateMap());
+			if (player.amIPlayerOne()) 
 			{
-				player1.setInvis(true);
-				player2.setGameEnd();
-				player1.setGameEnd();
-				player1.appear();
-				draw(map.updateMap());
-				ActionListener killlistener = new KillListener2();
-				killTimer1 = new Timer(500, killlistener);
-				killTimer1.start();
+				player2.setWin();
 			}
-		}	
+			else 
+			{
+				player1.setWin();
+			}
+			ActionListener killlistener = new KillListener();
+			killTimer = new Timer(500, killlistener);
+			killTimer.start();
+		}
 	}
 	public void moveBullet(Bullet bullet) 
 	{
@@ -317,24 +283,16 @@ public class Game extends JFrame {
 			draw(map.updateMap());
 		}
 	}
-	public void sleep(long i) {
-		try {
-			Thread.sleep(i);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			System.out.println("TEST");
-		}
-	}
 	//refreshes the display
 	public void refreshPlayer(Actor player) 
 	{
 		int r = player.getLocation().getRow();
 		int c = player.getLocation().getCol();
-		if (map.getCellType(r, c) == CellType.BUSH_PLAYER) 
+		if (map.getOriginalCellType(r, c) == CellType.BUSH) 
 		{
 			map.updateCell(r, c, CellType.BUSH_PLAYER);
 		}
-		else if (map.getCellType(r, c) == CellType.PUDDLE_PLAYER) 
+		else if (map.getOriginalCellType(r, c) == CellType.PUDDLE) 
 		{
 			map.updateCell(r, c, CellType.PUDDLE_PLAYER);
 		}
@@ -361,43 +319,21 @@ public class Game extends JFrame {
 		return false;
 	}
 	//win condition
-	public boolean bullet1TouchingPlayer2() 
+	public boolean bulletTouchingPlayer(Bullet bullet, Actor player) 
 	{
-		if (bullet1.getLocation() == null) 
+		if (bullet.getLocation() == null) 
 		{
 			return false;
 		}
-		if (bullet1.getLocation().equals(player2.getLocation())) 
+		if (bullet.getLocation().equals(player.getLocation())) 
 		{
-			if (player2.extraLife()) 
-			{
-				player2.appear();
-				player2.setExtraLife(false);
+			if (player.extraLife()) 
+			{	
+				player.appear();
+				player.setExtraLife(false);
 				return false;
 			}
-			timerB1.stop();
-			timerB2.stop();
-			return true;
-		}
-		return false;
-	}
-	//win condition
-	public boolean bullet2TouchingPlayer1() 
-	{
-		if (bullet2.getLocation() == null) 
-		{
-			return false;
-		}
-		if (bullet2.getLocation().equals(player1.getLocation())) 
-		{
-			if (player1.extraLife()) 
-			{
-				player1.appear();
-				player1.setExtraLife(false);
-				return false;
-			}
-			timerB1.stop();
-			timerB2.stop();
+			timerB.stop();
 			return true;
 		}
 		return false;
@@ -522,12 +458,7 @@ public class Game extends JFrame {
 			{
 				player.moveForward();
 			}
-			if (touchingShield(player)) 
-			{
-				map.updateCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);
-				map.updateOriginalCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);
-			}
-			else if (touchingRevealer(player)) 
+			if (touchingShield(player) || touchingRevealer(player)) 
 			{
 				map.updateCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);
 				map.updateOriginalCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);
@@ -680,15 +611,13 @@ public class Game extends JFrame {
 		}
 		if (player.getLocation().equals(revealer.getLocation())) 
 		{
+			revealerActive = false;
+			revealer.setLocation(null);
 			if (player.amIPlayerOne()) 
 			{
-				revealerActive = false;
-				revealer.setLocation(null);
 				revealer.activate(player2);
 			} else 
 			{
-				revealerActive = false;
-				revealer.setLocation(null);
 				revealer.activate(player1);
 			}
 			return true;
@@ -702,7 +631,7 @@ public class Game extends JFrame {
 		Image image = wall.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wall = new ImageIcon(newimg);  // transform it back
-		bush = new ImageIcon(cldr.getResource("grass.jpg"));
+		bush = new ImageIcon(cldr.getResource("bush.png"));
 		Image bush1 = bush.getImage(); // transform it 
 		Image newbush = bush1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		bush = new ImageIcon(newbush);  // transform it back
@@ -726,7 +655,7 @@ public class Game extends JFrame {
 		Image revealer1 = revealerI.getImage(); // transform it 
 		Image newrevealer = revealer1.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		revealerI = new ImageIcon(newrevealer);  // transform it back
-		bushPlayer = new ImageIcon(cldr.getResource("fish.gif"));
+		bushPlayer = new ImageIcon(cldr.getResource("bushfilled.png"));
 		Image bushPlayer1 = bushPlayer.getImage(); // transform it 
 		Image newBPlayer = bushPlayer1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		bushPlayer = new ImageIcon(newBPlayer);  // transform it back

@@ -21,6 +21,7 @@ public class Actor {
 	private boolean playerIdentifier;
 	private boolean playerInvis;
 	private boolean extraLife;
+	private boolean won;
 	private int reveal;
 	private boolean hasReveal;
 	private boolean cantgoinvis;
@@ -31,6 +32,7 @@ public class Actor {
 	//constructor
 	public Actor(int direction, Location location, CellType back)
 	{
+		won = false;
 		gameGoingCanMove = true;
 		inActive = false;
 		count = 0;
@@ -38,6 +40,14 @@ public class Actor {
 		myDirection = direction;
 		myLocation = location;
 		images();
+	}
+	public boolean IWon() 
+	{
+		return won;
+	}
+	public void setWin() 
+	{
+		won = true;
 	}
 	public Actor(int dir) 
 	{
@@ -283,9 +293,4 @@ public class Actor {
 		Image a2rnew = a2r.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		actorImage2R = new ImageIcon(a2rnew);
 	}
-
-	public void removeSelffromGrid()
-	{
-		//to be implemented
-	}	
 }

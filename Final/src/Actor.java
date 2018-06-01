@@ -25,11 +25,13 @@ public class Actor {
 	private boolean hasReveal;
 	private boolean cantgoinvis;
 	private boolean inActive;
+	private boolean gameGoingCanMove;
 	public int count;
 	public Actor() {}
 	//constructor
 	public Actor(int direction, Location location, CellType back)
 	{
+		gameGoingCanMove = true;
 		inActive = false;
 		count = 0;
 		myBack = back;
@@ -92,6 +94,14 @@ public class Actor {
 		{
 			playerInvis = true;
 		}
+	}
+	public void setGameEnd() 
+	{
+		gameGoingCanMove = false;
+	}
+	public boolean gameGoingCanMove() 
+	{
+		return gameGoingCanMove;
 	}
 	//checks is the player is invisible
 	public boolean invis() 

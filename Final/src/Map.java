@@ -189,10 +189,32 @@ public class Map {
 		map[or][oc] = mapOriginal[or][oc];
 		if (player.amIPlayerOne()) 
 		{
-			map[r][c] = CellType.PLAYER_A;
+			if (mapOriginal[r][c] == CellType.BUSH) 
+			{
+				map[r][c] = CellType.BUSH_PLAYER;
+			} 
+			else if (mapOriginal[r][c] == CellType.PUDDLE) 
+			{
+				map[r][c] = CellType.PUDDLE_PLAYER;
+			} 
+			else 
+			{
+				map[r][c] = CellType.PLAYER_A;
+			}
 		} else 
 		{
-			map[r][c] = CellType.PLAYER_B;
+			if (mapOriginal[r][c] == CellType.BUSH) 
+			{
+				map[r][c] = CellType.BUSH_PLAYER;
+			} 
+			else if (mapOriginal[r][c] == CellType.PUDDLE) 
+			{
+				map[r][c] = CellType.PUDDLE_PLAYER;
+			} 
+			else 
+			{
+				map[r][c] = CellType.PLAYER_B;
+			}
 		}
 	}
 }

@@ -32,6 +32,8 @@ public class Game extends JFrame {
 	private ImageIcon splash;
 	private ImageIcon shieldI;
 	private ImageIcon revealerI;
+	private ImageIcon bushPlayer;
+	private ImageIcon puddlePlayer;
 	private Shield shield;
 	private Revealer revealer;
 	private Timer timerB1;
@@ -39,7 +41,6 @@ public class Game extends JFrame {
 	private Timer timerR1;
 	private Timer timerR2;
 	private Timer timerI;
-	private Timer timerG;
 	private Timer killTimer;
 	private Timer killTimer1;
 	private boolean shieldActive;
@@ -51,7 +52,6 @@ public class Game extends JFrame {
 		startItemTimers();
 		startBtimers();
 		startRevealTimers();
-		startGameTimer();
 		images();
 		useMapNum = num;
 		shield = new Shield(null);
@@ -103,12 +103,6 @@ public class Game extends JFrame {
 		timer.start();
 	}
 	//start all necessary timers
-	public void startGameTimer() 
-	{
-		ActionListener listenG = new GameListener();
-		timerG = new Timer(100, listenG);
-		timerG.start();
-	}
 	public void startItemTimers() 
 	{
 		ActionListener item = new ItemListener();
@@ -174,16 +168,7 @@ public class Game extends JFrame {
 			}
 		}
 	}
-	public class GameListener implements ActionListener
-	{
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			refreshPlayer(player1);
-			refreshPlayer(player2);
-			draw(map.updateMap());
-		}	
-	}
+	//constantly refreshes players
 	public class KillListener1 implements ActionListener
 	{
 
@@ -345,10 +330,19 @@ public class Game extends JFrame {
 	{
 		int r = player.getLocation().getRow();
 		int c = player.getLocation().getCol();
-		if (player.amIPlayerOne()) 
+		if (map.getCellType(r, c) == CellType.BUSH_PLAYER) 
+		{
+			map.updateCell(r, c, CellType.BUSH_PLAYER);
+		}
+		else if (map.getCellType(r, c) == CellType.PUDDLE_PLAYER) 
+		{
+			map.updateCell(r, c, CellType.PUDDLE_PLAYER);
+		}
+		else if (player.amIPlayerOne()) 
 		{
 			map.updateCell(r, c, CellType.PLAYER_A);
-		} else 
+		} 
+		else 
 		{
 			map.updateCell(r, c, CellType.PLAYER_B);
 		}
@@ -484,6 +478,14 @@ public class Game extends JFrame {
 				{
 					revealer.setLocation(new Location(i, j));
 					labels[i][j].setIcon(revealerI);
+				}
+				else if (map[i][j] == CellType.BUSH_PLAYER) 
+				{
+					labels[i][j].setIcon(bushPlayer);
+				}
+				else if (map[i][j] == CellType.PUDDLE_PLAYER) 
+				{
+					labels[i][j].setIcon(puddlePlayer);
 				}
 				else 
 				{
@@ -724,5 +726,13 @@ public class Game extends JFrame {
 		Image revealer1 = revealerI.getImage(); // transform it 
 		Image newrevealer = revealer1.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		revealerI = new ImageIcon(newrevealer);  // transform it back
+		bushPlayer = new ImageIcon(cldr.getResource("fish.gif"));
+		Image bushPlayer1 = bushPlayer.getImage(); // transform it 
+		Image newBPlayer = bushPlayer1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		bushPlayer = new ImageIcon(newBPlayer);  // transform it back
+		puddlePlayer = new ImageIcon(cldr.getResource("wallb.png"));
+		Image puddlePlayer1 = puddlePlayer.getImage(); // transform it 
+		Image newPPlayer = puddlePlayer1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		puddlePlayer = new ImageIcon(newPPlayer);  // transform it back
 	}
 }

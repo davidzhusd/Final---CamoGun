@@ -7,7 +7,8 @@ public class Credits extends JFrame {
 		text.setLineWrap(true);
 		text.setEditable(false);
 		text.setText("Game Desginers: Richard Chen, David Zhu, Yang Song, Wenzhe Zhang\n"
-				+ "Websites used: ");
+				+ "Websites used: https://pixlr.com/editor/"
+				+ "https://opengameart.org/content/basic-map-32x32-by-silver-iv");
 		add(text);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(600, 300);

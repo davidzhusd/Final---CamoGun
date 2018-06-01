@@ -267,6 +267,8 @@ public class Game extends JFrame {
 			if (bullet1TouchingPlayer2()) 
 			{
 				player2.setInvis(true);
+				player2.setGameEnd();
+				player1.setGameEnd();
 				player2.appear();
 				draw(map.updateMap());
 				ActionListener killlistener = new KillListener1();
@@ -285,6 +287,8 @@ public class Game extends JFrame {
 			if (bullet2TouchingPlayer1()) 
 			{
 				player1.setInvis(true);
+				player2.setGameEnd();
+				player1.setGameEnd();
 				player1.appear();
 				draw(map.updateMap());
 				ActionListener killlistener = new KillListener2();
@@ -512,7 +516,10 @@ public class Game extends JFrame {
 			player.setInvis(false);
 			int r = player.getLocation().getRow();
 			int c = player.getLocation().getCol();
-			player.moveForward();
+			if (player.gameGoingCanMove()) 
+			{
+				player.moveForward();
+			}
 			if (touchingShield(player)) 
 			{
 				map.updateCell(player.getLocation().getRow(), player.getLocation().getCol(), CellType.EMPTY);

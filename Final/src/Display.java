@@ -17,13 +17,9 @@ public class Display {
 	{
 		WinTwo two = new WinTwo();
 	}
-	public void displayGameAlternate()
-	{
-		GameAlternate game = new GameAlternate(0,0);
-	}
 	public void displayInstructions() 
 	{
-		Instructions ins= new Instructions();
+		Instructions ins = new Instructions();
 	}
 	public void displayCredits() 
 	{

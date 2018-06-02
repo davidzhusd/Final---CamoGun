@@ -29,7 +29,6 @@ public class Game extends JFrame {
 	private ImageIcon bush;
 	private ImageIcon wallb;
 	private ImageIcon puddle;
-	private ImageIcon splash;
 	private ImageIcon shieldI;
 	private ImageIcon revealerI;
 	private ImageIcon bushPlayer;
@@ -53,10 +52,10 @@ public class Game extends JFrame {
 		shield = new Shield(null);
 		revealer = new Revealer(null);
 		x = new Display();
-		player1 = new Actor(90, new Location(1, 1), CellType.EMPTY);
+		player1 = new Actor(90, new Location(1, 1));
 		player1.thisIsPlayerOne();
 		player1.appear();
-		player2 = new Actor(0, new Location(8, 8), CellType.EMPTY);
+		player2 = new Actor(0, new Location(8, 8));
 		player2.appear();
 		bullet1 = new Bullet(player1.getDirection(), player1.getLocation());
 		bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
@@ -80,6 +79,7 @@ public class Game extends JFrame {
 		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000, 1000);
+		setResizable(false);
 		setVisible(true);
 		requestFocusInWindow();
 		addKeyListener(new KeyHandler());

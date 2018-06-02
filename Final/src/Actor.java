@@ -1,15 +1,9 @@
-
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class Actor {
 	private int myDirection;
 	private Location myLocation;
-	private CellType myBack;
-	private Image image;
 	private ImageIcon actorImage1U;
 	private ImageIcon actorImage1D;
 	private ImageIcon actorImage1L;
@@ -30,13 +24,12 @@ public class Actor {
 	public int count;
 	public Actor() {}
 	//constructor
-	public Actor(int direction, Location location, CellType back)
+	public Actor(int direction, Location location)
 	{
 		won = false;
 		gameGoingCanMove = true;
 		inActive = false;
 		count = 0;
-		myBack = back;
 		myDirection = direction;
 		myLocation = location;
 		images();
@@ -169,16 +162,6 @@ public class Actor {
 	public void setExtraLife(boolean value) 
 	{
 		extraLife = value;
-	}
-	//sets background
-	public void setBack(CellType type) 
-	{
-		myBack = type;
-	}
-	//returns background
-	public CellType getBack() 
-	{
-		return myBack;
 	}
 	//returns dir
 	public int getDirection()

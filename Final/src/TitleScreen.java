@@ -5,14 +5,23 @@ import java.awt.event.*;
 
 public class TitleScreen extends JFrame implements ActionListener{
 	private Display x;
+	private JLabel left;
+	private JLabel right;
 	private JButton Play;
 	private JButton Instructions;
 	private JButton Credits;
+	private JPanel label;
 	private JComboBox<String> comboBox1;
     private String[] names = {"CHOOSE A MAP", "Map 1", "Map 2", "Random"};
     private int useMap;
+    private ImageIcon decorR;
+    private ImageIcon decorL;
 	public TitleScreen() {
-		x = new Display();	
+		images();
+		x = new Display();
+		setTitle("CamoGun");
+		left = new JLabel();
+		right = new JLabel();
 		comboBox1 = new JComboBox<String>(names);
 		comboBox1.setMaximumRowCount(4);
 		Play = new JButton("Play");
@@ -27,11 +36,13 @@ public class TitleScreen extends JFrame implements ActionListener{
 		add(Play, gbc);
 		add(Instructions, gbc);
 		add(Credits, gbc);
-		add(comboBox1);
-		JLabel label = new JLabel();
-		ImageIcon image = new ImageIcon("fish.gif");
-		label.setIcon(image);
+		label = new JPanel();
+		label.add(left);
+		label.add(right);
 		add(label, gbc);
+		left.setIcon(decorL);
+		right.setIcon(decorR);
+		add(comboBox1);
 		comboBox1.addItemListener(new ComboBoxHandler());
 		Play.addActionListener(this); 
 		Instructions.addActionListener(this);
@@ -39,6 +50,18 @@ public class TitleScreen extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1000, 1000);
 		setVisible(true);
+	}
+	public void images() 
+	{
+		ClassLoader cldr = this.getClass().getClassLoader();
+		decorR = new ImageIcon(cldr.getResource("player2Left.png"));
+		Image decorR1 = decorR.getImage(); // transform it 
+		Image newDecorR = decorR1.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);
+		decorR = new ImageIcon(newDecorR);
+		decorL = new ImageIcon(cldr.getResource("player1.png"));
+		Image decorL1 = decorL.getImage(); // transform it 
+		Image newDecorL = decorL1.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);
+		decorL = new ImageIcon(newDecorL);
 	}
 	public void setMap(int num) 
 	{

@@ -12,7 +12,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 	private JButton Credits;
 	private JPanel label;
 	private JComboBox<String> comboBox1;
-    private String[] names = {"CHOOSE A MAP", "Map 1", "Map 2", "Random"};
+    private String[] names = {"CHOOSE A MAP", "Map 1", "Map 2","Map 3", "Random"};
     private int useMap;
     private ImageIcon decorR;
     private ImageIcon decorL;
@@ -79,6 +79,11 @@ public class TitleScreen extends JFrame implements ActionListener{
                 	{
                 		setMap(2);
                 	}
+                	else if(event.getItem().equals("Map 3"))
+                	{
+                		setMap(3);
+                	}
+                	
                 	else
                 	{
                 		setMap(0);

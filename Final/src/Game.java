@@ -55,7 +55,7 @@ public class Game extends JFrame {
 		player1 = new Actor(90, new Location(1, 1));
 		player1.thisIsPlayerOne();
 		player1.appear();
-		player2 = new Actor(0, new Location(8, 8));
+		player2 = new Actor(270, new Location(8, 8));
 		player2.appear();
 		bullet1 = new Bullet(player1.getDirection(), player1.getLocation());
 		bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
@@ -67,7 +67,7 @@ public class Game extends JFrame {
 			map = new Map(useMapNum);
 		} else 
 		{//randomized map
-			int random=(int)((Math.random())*2 + 1);
+			int random=(int)((Math.random())*3 + 1);
 			map = new Map(random);
 		}
 		initialize();

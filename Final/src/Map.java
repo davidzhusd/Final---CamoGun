@@ -97,6 +97,7 @@ public class Map {
 			map[2][5] = CellType.WAll_B;
 			map[2][6] = CellType.WAll_B;
 			map[2][7] = CellType.WAll_B;
+			map[2][8] = CellType.WAll_B;
 			map[5][4] = CellType.WAll_B;
 			map[5][5] = CellType.WAll_B;
 			map[7][1] = CellType.WAll_B;
@@ -116,6 +117,39 @@ public class Map {
 			map[5][3] = CellType.PUDDLE;
 			map[6][2] = CellType.PUDDLE;
 			map[6][3] = CellType.PUDDLE;
+		}
+			
+			if (alternate == 3)
+			{
+				map[1][1] = CellType.PLAYER_A;
+				map[8][8] = CellType.PLAYER_B;
+				map[1][2] = CellType.BUSH;
+				map[1][3] = CellType.BUSH;
+				map[8][7] = CellType.BUSH;
+				map[8][6] = CellType.BUSH;
+				map[2][1] = CellType.WAll_B;
+				map[7][8] = CellType.WAll_B;
+				map[2][2] = CellType.WALL;
+				map[2][3] = CellType.WALL;
+				map[7][7] = CellType.WALL;
+				map[7][6] = CellType.WALL;
+				map[4][5] = CellType.WALL;
+				map[4][4] = CellType.WALL;
+				map[5][5] = CellType.WALL;
+				map[5][4] = CellType.WALL;
+				map[3][5] = CellType.PUDDLE;
+				map[4][3] = CellType.PUDDLE;
+				map[6][4] = CellType.PUDDLE;
+				map[4][2] = CellType.PUDDLE;
+				map[3][8] = CellType.PUDDLE;
+				map[5][6] = CellType.PUDDLE;
+				map[5][7] = CellType.PUDDLE;
+				map[6][1] = CellType.PUDDLE;
+				
+				
+				
+				
+			}
 			for (int i = 0; i < 10; i++) 
 			{
 				for (int j = 0; j < 10; j++) 
@@ -126,7 +160,7 @@ public class Map {
 					}
 				}
 			}
-		}
+		
 		//fills in all remaining slots with empty
 		for (int i = 0; i < 10; i++) 
 		{

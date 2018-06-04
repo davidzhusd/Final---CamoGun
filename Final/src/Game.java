@@ -11,8 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-
-
 public class Game extends JFrame {
 	private Display x;
 	private Actor player1;

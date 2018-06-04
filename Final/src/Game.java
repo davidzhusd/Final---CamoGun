@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
+
+
 public class Game extends JFrame {
 	private Display x;
 	private Actor player1;
@@ -53,7 +55,7 @@ public class Game extends JFrame {
 		player1 = new Actor(90, new Location(1, 1));
 		player1.thisIsPlayerOne();
 		player1.appear();
-		player2 = new Actor(90, new Location(8, 8));
+		player2 = new Actor(270, new Location(8, 8));
 		player2.appear();
 		bullet1 = new Bullet(player1.getDirection(), player1.getLocation());
 		bullet2 = new Bullet(player2.getDirection(), player2.getLocation());
@@ -65,7 +67,7 @@ public class Game extends JFrame {
 			map = new Map(useMapNum);
 		} else 
 		{//randomized map
-			int random=(int)((Math.random())*2 + 1);
+			int random=(int)((Math.random())*3 + 1);
 			map = new Map(random);
 		}
 		initialize();
@@ -629,7 +631,7 @@ public class Game extends JFrame {
 		Image image = wall.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		wall = new ImageIcon(newimg);  // transform it back
-		bush = new ImageIcon(cldr.getResource("Bush.png"));
+		bush = new ImageIcon(cldr.getResource("bush.png"));
 		Image bush1 = bush.getImage();
 		Image newbush = bush1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);
 		bush = new ImageIcon(newbush);
@@ -649,7 +651,7 @@ public class Game extends JFrame {
 		Image revealer1 = revealerI.getImage();
 		Image newrevealer = revealer1.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH); 
 		revealerI = new ImageIcon(newrevealer);
-		bushPlayer = new ImageIcon(cldr.getResource("Bushfilled.png")); 
+		bushPlayer = new ImageIcon(cldr.getResource("bushfilled.png"));
 		Image bushPlayer1 = bushPlayer.getImage();
 		Image newBPlayer = bushPlayer1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);  
 		bushPlayer = new ImageIcon(newBPlayer);

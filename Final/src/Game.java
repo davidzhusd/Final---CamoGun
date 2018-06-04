@@ -649,7 +649,7 @@ public class Game extends JFrame {
 		Image revealer1 = revealerI.getImage();
 		Image newrevealer = revealer1.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH); 
 		revealerI = new ImageIcon(newrevealer);
-		bushPlayer = new ImageIcon(cldr.getResource("Bushfilled.png"));
+		bushPlayer = new ImageIcon(cldr.getResource("Bushfilled.png")); 
 		Image bushPlayer1 = bushPlayer.getImage();
 		Image newBPlayer = bushPlayer1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);  
 		bushPlayer = new ImageIcon(newBPlayer);

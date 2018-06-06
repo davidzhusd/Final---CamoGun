@@ -481,7 +481,7 @@ public class Game extends JFrame {
 					draw(map.updateMap());
 				}
 			}
-			if (event.getKeyCode() == KeyEvent.VK_NUMPAD0) 
+			if (event.getKeyCode() == KeyEvent.VK_NUMPAD0 || event.getKeyCode() == KeyEvent.VK_L) 
 			{
 				if (!bullet2.isActive()) 
 				{

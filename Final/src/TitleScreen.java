@@ -49,6 +49,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 		Credits.addActionListener(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1000, 1000);
+		setResizable(false);
 		setVisible(true);
 	}
 	public void images() 

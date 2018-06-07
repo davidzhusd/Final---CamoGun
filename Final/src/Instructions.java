@@ -12,7 +12,7 @@ public class Instructions extends JFrame{
 		text.setEditable(false);
 		text.setText("Instructions:\n"
 				+ "Player 1 starts at top left corner, move with WASD, and shoot with the SPACE key.\n"
-				+ "Player 2 starts at bottom right corner, move with arrow keys, and shoot with Numpad 0\n"
+				+ "Player 2 starts at bottom right corner, move with arrow keys, and shoot with Numpad 0.\n"
 				+ "Players turn invisible after 3 seconds and remain so until a players fires a bullet.\n"
 				+ "When a player moves through bushes and puddles, the bushes will rustle and the puddles will splash.\n"
 				+ "Brick walls are unbreakable, but wooden ones can be broken by bullets.\n"

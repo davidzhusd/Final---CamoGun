@@ -25,7 +25,7 @@ public class TitleScreen extends JFrame implements ActionListener{
 		left = new JLabel();
 		right = new JLabel();
 		y = new JLabel("Camo Gun");
-		y.setFont(new Font("Papyrus",Font.ITALIC,50));
+		y.setFont(new Font("Papyrus", Font.BOLD, 50));
 		comboBox1 = new JComboBox<String>(names);
 		comboBox1.setMaximumRowCount(4);
 		Play = new JButton("Play");
